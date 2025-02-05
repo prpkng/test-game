@@ -4,9 +4,18 @@
 	"skipErrorMessage": true,
 	"commands": [
 		{
+			"text": "💻DEV",
+			"color": "lime",
+			"commandType": "exec",
+			"command": "haxe build.dev.hxml",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -8
+		},
+		{
 			"text": "🍊 DX",
 			"color": "orange",
-			"commandType":"exec",
+			"commandType": "exec",
 			"command": "haxe build.directx.hxml",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
@@ -15,7 +24,7 @@
 		{
 			"text": "🍊 OpenGL",
 			"color": "orange",
-			"commandType":"exec",
+			"commandType": "exec",
 			"command": "haxe build.opengl.hxml",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
@@ -32,7 +41,7 @@
 		{
 			"text": "☕ JS",
 			"color": "yellow",
-			"commandType":"exec",
+			"commandType": "exec",
 			"command": "haxe build.js.hxml",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
