@@ -12,6 +12,7 @@ class DebugDrone extends Entity {
 	var ca : ControllerAccess<GameAction>;
 	var prevCamTarget : Null<Entity>;
 	var prevCamZoom : Float;
+	var prevCamBounds : Bool;
 
 	var g : h2d.Graphics;
 	var help : h2d.Text;
@@ -39,7 +40,9 @@ class DebugDrone extends Entity {
 		if( camera.target!=null && camera.target.isAlive() )
 			prevCamTarget = camera.target;
 		prevCamZoom = camera.zoom;
+		prevCamBounds = camera.clampToLevelBounds;
 		camera.trackEntity(this,false);
+		camera.clampToLevelBounds = false;
 
 		// Placeholder render
 		g = new h2d.Graphics(spr);
@@ -76,6 +79,7 @@ class DebugDrone extends Entity {
 			camera.target = null;
 		prevCamTarget = null;
 		camera.forceZoom( prevCamZoom );
+		camera.clampToLevelBounds = prevCamBounds;
 
 		super.dispose();
 

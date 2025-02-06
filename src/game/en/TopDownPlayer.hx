@@ -1,5 +1,9 @@
 package en;
 
+import en.vfx.Trail;
+import h3d.scene.Mesh;
+import h3d.prim.Cube;
+import h3d.scene.Graphics;
 import h3d.Vector;
 
 /**
