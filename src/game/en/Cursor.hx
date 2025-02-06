@@ -1,7 +1,6 @@
 package en;
 
 class Cursor extends Entity {
-
     public function new() {
         super(0, 0);
 

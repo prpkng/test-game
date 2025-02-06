@@ -1,5 +1,7 @@
 package en;
 
+import h3d.Vector;
+
 /**
 	SamplePlayer is an Entity with some extra functionalities:
 	- user controlled (using gamepad or keyboard)
@@ -14,13 +16,17 @@ class TopDownPlayer extends Entity {
 	var vSpeed = 0.;
 	var moveSpeed = 0.195;
 
-	var moving(get, never):Bool;
+	var isRolling = false;
+	var rollingDirection:Vector;
+
+	public var moving(get, never):Bool;
 
 	inline function get_moving() {
 		return hSpeed != 0 || vSpeed != 0;
 	}
 
 	var playerWeapon:PlayerWeapon;
+	var cursor:Cursor;
 
 	public function new() {
 		super(5, 5);
@@ -50,6 +56,8 @@ class TopDownPlayer extends Entity {
 
 		// Player Gun
 		playerWeapon = new PlayerWeapon(this);
+
+		cursor = new Cursor();
 	}
 
 	override function dispose() {
@@ -95,11 +103,20 @@ class TopDownPlayer extends Entity {
 		vSpeed = 0;
 
 		// Horizontal movement
-		if (!isChargingAction() && ca.getAnalogDist2(MoveLeft, MoveRight) > 0) {
-			hSpeed = ca.getAnalogValue2(MoveLeft, MoveRight); // -1 to 1
+		if (!isRolling) {
+			if (!isChargingAction() && ca.getAnalogDist2(MoveLeft, MoveRight) > 0) {
+				hSpeed = ca.getAnalogValue2(MoveLeft, MoveRight); // -1 to 1
+			}
+			if (!isChargingAction() && ca.getAnalogDist2(MoveUp, MoveDown) > 0) {
+				vSpeed = ca.getAnalogValue2(MoveUp, MoveDown); // -1 to 1
+			}
 		}
-		if (!isChargingAction() && ca.getAnalogDist2(MoveUp, MoveDown) > 0) {
-			vSpeed = ca.getAnalogValue2(MoveUp, MoveDown); // -1 to 1
+
+		if (ca.isPressed(Fire)) {
+			cursor.setSquashX(0.65);
+			cursor.setSquashY(0.65);
+
+			cursor.shakeS(.75, .75, .25);
 		}
 
 		if (moving) {
