@@ -12,6 +12,7 @@ class Assets {
 
 	/** Main atlas **/
 	public static var tiles:SpriteLib;
+	public static var mainAtlas:SpriteLib;
 	/** UI atlas **/
 	public static var uiAtlas:SpriteLib;
 
@@ -34,6 +35,7 @@ class Assets {
 
 		// build sprite atlas directly from Aseprite file
 		tiles = dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.atlas.tiles.toAseprite());
+		mainAtlas = dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.atlas.main_atlas.toAseprite());
 		uiAtlas = dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.atlas.ui_atlas.toAseprite());
 
 

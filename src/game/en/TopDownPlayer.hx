@@ -27,7 +27,7 @@ class TopDownPlayer extends Entity {
 		return velocity.lengthSq() > 0.005;
 	}
 
-	var playerWeapon:PlayerWeapon;
+	public var weapon:PlayerWeapon;
 	public var cursor:Cursor;
 
 	public function new() {
@@ -57,7 +57,7 @@ class TopDownPlayer extends Entity {
 		pivotY = 0.5;
 
 		// Player Gun
-		playerWeapon = new PlayerWeapon(this);
+		weapon = new PlayerWeapon(this);
 
 		cursor = new Cursor(this);
 	}
@@ -122,6 +122,13 @@ class TopDownPlayer extends Entity {
 			cursor.setSquashY(0.65);
 
 			cursor.shakeS(.75, .75, .25);
+
+			var dir = new Vector(
+				cursor.attachX - attachX,
+				cursor.attachY - attachY
+			);
+
+			new PlayerBullet(this, dir);
 		}
 
 		if (ca.isPressed(Roll) && !cd.has("RollCooldown")) {
@@ -130,7 +137,7 @@ class TopDownPlayer extends Entity {
 			setAffectS(Affect.PlayerRolling, ROLL_AFFECT_SECS);
 			cd.setS("RollCooldown", ROLL_COOLDOWN_SECS);
 			spr.anim.play("Roll");
-			playerWeapon.visible = false;
+			weapon.visible = false;
 			sprScaleX = velocity.x < 0 ? -1 : 1;
 		}
 
@@ -148,7 +155,7 @@ class TopDownPlayer extends Entity {
 	override function onAffectEnd(k:Affect) {
 		switch (k) {
 			case PlayerRolling:
-				playerWeapon.visible = true;
+				weapon.visible = true;
 			case _:
 				return;
 
@@ -159,7 +166,7 @@ class TopDownPlayer extends Entity {
 		super.frameUpdate();
 
 		if (!hasAffect(Affect.PlayerRolling))
-			playerWeapon.update();
+			weapon.update();
 	}
 
 	override function fixedUpdate() {
