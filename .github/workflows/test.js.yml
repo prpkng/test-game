@@ -21,10 +21,21 @@ jobs:
     steps:
       # Checkout & install haxe
       - uses: actions/checkout@v2
+
+      # - name: Restore cached haxe installation
+      #   id: cache-primes-restore
+      #   uses: actions/cache/restore@v4
+      #   with:
+      #     path: |
+      #       path/to/dependencies
+      #       some/other/dependencies
+      #     key: ${{ runner.os }}-primes
+      
       - uses: krdlab/setup-haxe@v1
         with:
           haxe-version: ${{ matrix.haxe }}
       - run: haxe -version
+      - run: which haxe
 
       # Install libs
       - run: haxe setup.hxml
