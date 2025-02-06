@@ -12,17 +12,19 @@ import h3d.Vector;
 class TopDownPlayer extends Entity {
 	public var ca:ControllerAccess<GameAction>;
 
-	var hSpeed = 0.;
-	var vSpeed = 0.;
-	var moveSpeed = 0.195;
+	final ROLL_COOLDOWN_SECS = 0.4;
+	final ROLL_AFFECT_SECS = 0.25;
 
-	var isRolling = false;
+	var velocity = new Vector();
+	var moveSpeed = 0.195;
+	var rollSpeed = 0.60;
+
 	var rollingDirection:Vector;
 
 	public var moving(get, never):Bool;
 
 	inline function get_moving() {
-		return hSpeed != 0 || vSpeed != 0;
+		return velocity.lengthSq() > 0.005;
 	}
 
 	var playerWeapon:PlayerWeapon;
@@ -99,17 +101,20 @@ class TopDownPlayer extends Entity {
 	override function preUpdate() {
 		super.preUpdate();
 
-		hSpeed = 0;
-		vSpeed = 0;
+		velocity.x = 0;
+		velocity.y = 0;
 
-		// Horizontal movement
-		if (!isRolling) {
+		// Main movement
+		if (!hasAffect(Affect.PlayerRolling)) {
 			if (!isChargingAction() && ca.getAnalogDist2(MoveLeft, MoveRight) > 0) {
-				hSpeed = ca.getAnalogValue2(MoveLeft, MoveRight); // -1 to 1
+				velocity.x = ca.getAnalogValue2(MoveLeft, MoveRight); // -1 to 1
 			}
 			if (!isChargingAction() && ca.getAnalogDist2(MoveUp, MoveDown) > 0) {
-				vSpeed = ca.getAnalogValue2(MoveUp, MoveDown); // -1 to 1
+				velocity.y = ca.getAnalogValue2(MoveUp, MoveDown); // -1 to 1
 			}
+			velocity *= moveSpeed;
+		} else { // Rolling movement
+			velocity = rollingDirection * rollSpeed;
 		}
 
 		if (ca.isPressed(Fire)) {
@@ -119,19 +124,42 @@ class TopDownPlayer extends Entity {
 			cursor.shakeS(.75, .75, .25);
 		}
 
-		if (moving) {
-			if (!spr.anim.isPlaying("Run"))
-				spr.anim.playAndLoop("Run");
-		} else {
-			if (!spr.anim.isPlaying("Idle"))
-				spr.anim.playAndLoop("Idle");
+		if (ca.isPressed(Roll) && !cd.has("RollCooldown")) {
+			rollingDirection = new Vector(velocity.x, velocity.y);
+			rollingDirection.normalize();
+			setAffectS(Affect.PlayerRolling, ROLL_AFFECT_SECS);
+			cd.setS("RollCooldown", ROLL_COOLDOWN_SECS);
+			spr.anim.play("Roll");
+			playerWeapon.visible = false;
+			sprScaleX = velocity.x < 0 ? -1 : 1;
+		}
+
+		if (!hasAffect(Affect.PlayerRolling)) {
+			if (moving) {
+				if (!spr.anim.isPlaying("Run"))
+					spr.anim.playAndLoop("Run");
+			} else {
+				if (!spr.anim.isPlaying("Idle"))
+					spr.anim.playAndLoop("Idle");
+			}
+		}
+	}
+
+	override function onAffectEnd(k:Affect) {
+		switch (k) {
+			case PlayerRolling:
+				playerWeapon.visible = true;
+			case _:
+				return;
+
 		}
 	}
 
 	override function frameUpdate() {
 		super.frameUpdate();
 
-		playerWeapon.update();
+		if (!hasAffect(Affect.PlayerRolling))
+			playerWeapon.update();
 	}
 
 	override function fixedUpdate() {
@@ -139,9 +167,9 @@ class TopDownPlayer extends Entity {
 
 		// Apply requested walk movement
 
-		if (hSpeed != 0)
-			vBase.dx += hSpeed * moveSpeed;
-		if (vSpeed != 0)
-			vBase.dy += vSpeed * moveSpeed;
+		if (velocity.x != 0)
+			vBase.dx += velocity.x;
+		if (velocity.y != 0)
+			vBase.dy += velocity.y;
 	}
 }

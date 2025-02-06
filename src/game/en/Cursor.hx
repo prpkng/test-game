@@ -6,6 +6,8 @@ class Cursor extends Entity {
 
         spr.set(Assets.uiAtlas, "Crosshair");
         spr.setCenterRatio(0.5, 0.5);
+
+        this.disableDebugBounds();
     }
 
     override function frameUpdate() {

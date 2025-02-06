@@ -6,6 +6,8 @@ enum abstract GameAction(Int) to Int {
 	var MoveDown;
 
 	var Fire;
+	var Roll;
+
 	var Restart;
 
 	var MenuLeft;
@@ -34,6 +36,8 @@ enum abstract State(Int) {
 /** Entity Affects have a limited duration in time and you can stack different affects. **/
 enum abstract Affect(Int) {
 	var Stun;
+
+	var PlayerRolling;
 }
 
 enum abstract LevelMark(Int) to Int {
