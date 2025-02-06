@@ -63,7 +63,7 @@ jobs:
           command: c
           cwd: ./redist
           files: |
-            ./js/*
+            ./js/
           outPath: github_pages.tar.gz
       
       - name: Upload GH pages artifact
