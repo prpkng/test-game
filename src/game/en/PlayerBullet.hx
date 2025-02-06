@@ -15,6 +15,10 @@ class PlayerBullet extends Entity {
 
 	public function new(player:TopDownPlayer, dir:Vector) {
 		super(0, 0);
+		if (dir.lengthSq() < 0.05) {
+			dispose();
+			return;
+		}
 		dir.normalize();
 		setPosPixel(player.attachX + dir.x * 8, player.attachY + 3 + dir.y * 6);
 
