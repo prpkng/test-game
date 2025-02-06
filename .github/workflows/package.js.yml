@@ -55,21 +55,9 @@ jobs:
 
       - name: Package project
         run: haxelib run redistHelper build.js.hxml -o redist -p GameBase
-      - name: Compress
-        uses: a7ul/tar-action@v1.1.0
-        id: compress
-        with:
-          command: c
-          cwd: ./redist
-          files: |
-            ./js/
-          outPath: github_pages.tar.gz
-      - run: tree
-      
-      - name: Upload GH pages artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: github_pages
-          path: ./github_pages.tar.gz
         
-
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          path: './redist/js'
