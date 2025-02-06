@@ -8,7 +8,8 @@ package en;
 	- some squash animations, because it's cheap and they do the job
 **/
 class TopDownPlayer extends Entity {
-	var ca:ControllerAccess<GameAction>;
+	public var ca:ControllerAccess<GameAction>;
+
 	var hSpeed = 0.;
 	var vSpeed = 0.;
 	var moveSpeed = 0.195;
@@ -18,6 +19,8 @@ class TopDownPlayer extends Entity {
 	inline function get_moving() {
 		return hSpeed != 0 || vSpeed != 0;
 	}
+
+	var playerWeapon:PlayerWeapon;
 
 	public function new() {
 		super(5, 5);
@@ -44,6 +47,9 @@ class TopDownPlayer extends Entity {
 		spr.anim.loop();
 		spr.setCenterRatio(0.5, 0.5);
 		pivotY = 0.5;
+
+		// Player Gun
+		playerWeapon = new PlayerWeapon(this);
 	}
 
 	override function dispose() {
@@ -103,6 +109,12 @@ class TopDownPlayer extends Entity {
 			if (!spr.anim.isPlaying("Idle"))
 				spr.anim.playAndLoop("Idle");
 		}
+	}
+
+	override function frameUpdate() {
+		super.frameUpdate();
+
+		playerWeapon.update();
 	}
 
 	override function fixedUpdate() {

@@ -395,4 +395,21 @@ class Camera extends GameChildProcess {
 		}
 	}
 
+	public var worldMouseX(get, never):Float;
+	public var worldMouseY(get, never):Float;
+
+
+	function get_worldMouseX():Float {
+		var mouseX = hxd.Window.getInstance().mouseX;
+		var viewportX = GM.inverseLerp(mouseX, 0, App.ME.stageWid);
+		return viewportX * pxWid + pxLeft;
+	}
+
+	function get_worldMouseY():Float {
+		var mouseY = hxd.Window.getInstance().mouseY;
+		var viewportY = GM.inverseLerp(mouseY, 0, App.ME.stageHei);
+		return viewportY * pxHei + pxTop;
+	}
+	
+	
 }

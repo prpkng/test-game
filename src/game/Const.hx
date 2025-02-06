@@ -29,14 +29,14 @@ class Const {
 	public static var SCALE(get,never) : Int;
 		static inline function get_SCALE() {
 			// can be replaced with another way to determine the game scaling
-			return dn.heaps.Scaler.bestFit_i(200,200);
+			return dn.heaps.Scaler.bestFit_i(400,225);
 		}
 
 	/** Specific scaling for top UI elements **/
 	public static var UI_SCALE(get,never) : Float;
 		static inline function get_UI_SCALE() {
 			// can be replaced with another way to determine the UI scaling
-			return dn.heaps.Scaler.bestFit_i(400,400);
+			return dn.heaps.Scaler.bestFit_i(400,225);
 		}
 
 
