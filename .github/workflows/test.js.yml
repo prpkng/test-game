@@ -31,7 +31,7 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('setup.hxml') }}
       
       - uses: krdlab/setup-haxe@v1
-        if: steps.restore-haxe.outputs.cache-hit != 'true'
+        # if: steps.restore-haxe.outputs.cache-hit != 'true'
         with:
           haxe-version: ${{ matrix.haxe }}
       - run: haxe -version
