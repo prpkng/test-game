@@ -21,8 +21,8 @@ class PlayerWeapon extends HSprite {
 	}
 
 	public function update() {
-		var localMouseX = player.camera.worldMouseX - player.spr.x;
-		var localMouseY = player.camera.worldMouseY - player.spr.y;
+		var localMouseX = player.cursor.attachX - player.spr.x;
+		var localMouseY = player.cursor.attachY - player.spr.y;
 
 		var a = Math.atan2(localMouseY, localMouseX);
 

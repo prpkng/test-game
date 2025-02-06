@@ -5,6 +5,9 @@ enum abstract GameAction(Int) to Int {
 	var MoveUp;
 	var MoveDown;
 
+	var LookX;
+	var LookY;
+
 	var Fire;
 	var Roll;
 

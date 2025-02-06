@@ -28,7 +28,7 @@ class TopDownPlayer extends Entity {
 	}
 
 	var playerWeapon:PlayerWeapon;
-	var cursor:Cursor;
+	public var cursor:Cursor;
 
 	public function new() {
 		super(5, 5);
@@ -59,7 +59,7 @@ class TopDownPlayer extends Entity {
 		// Player Gun
 		playerWeapon = new PlayerWeapon(this);
 
-		cursor = new Cursor();
+		cursor = new Cursor(this);
 	}
 
 	override function dispose() {

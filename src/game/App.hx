@@ -228,6 +228,7 @@ class App extends dn.Process {
 
 		// Gamepad bindings
 		controller.bindPadLStick4(MoveLeft, MoveRight, MoveUp, MoveDown);
+		controller.bindPadRStickXY(LookX, LookY);
 		controller.bindPad(Fire, [X, RB, RT]);
 		controller.bindPad(Roll, [A, LB, LT]);
 		controller.bindPad(Restart, SELECT);
