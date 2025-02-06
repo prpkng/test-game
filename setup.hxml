@@ -16,5 +16,6 @@
 --cmd haxelib --always git ldtk-haxe-api https://github.com/deepnight/ldtk-haxe-api.git
 --cmd haxelib --always git deepnightLibs https://github.com/deepnight/deepnightLibs.git
 
+--cmd haxelib --always install hxease
 # Done
 --cmd haxelib list
