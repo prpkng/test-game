@@ -36,8 +36,10 @@ jobs:
           haxe-version: ${{ matrix.haxe }}
       - run: haxe -version
 
-      # Install libs
+      # Install libs if cache not found
       - run: haxe setup.hxml
+        if: steps.restore-haxe.outputs.cache-hit != 'true'
+
       - run: haxelib list
 
       - name: Save haxe cache
@@ -53,7 +55,7 @@ jobs:
 
       - name: Package project
         run: haxelib run redistHelper build.js.hxml -o redist -p GameBase
-
+      - run: tree
       - name: Compress
         uses: a7ul/tar-action@v1.1.0
         id: compress
