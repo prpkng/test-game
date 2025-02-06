@@ -22,24 +22,31 @@ jobs:
       # Checkout & install haxe
       - uses: actions/checkout@v2
 
-      # - name: Restore cached haxe installation
-      #   id: cache-primes-restore
-      #   uses: actions/cache/restore@v4
-      #   with:
-      #     path: |
-      #       path/to/dependencies
-      #       some/other/dependencies
-      #     key: ${{ runner.os }}-primes
+      - name: Restore cached haxe installation
+        id: restore-haxe
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            /opt/hostedtoolcache/haxe
+          key: ${{ runner.os }}-${{ hashFiles('setup.hxml') }}
       
       - uses: krdlab/setup-haxe@v1
+        if: steps.restore-haxe.outputs.cache-hit != 'true'
         with:
           haxe-version: ${{ matrix.haxe }}
       - run: haxe -version
-      - run: which haxe
 
       # Install libs
       - run: haxe setup.hxml
       - run: haxelib list
+
+      - name: Save haxe cache
+        id: save-haxe
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            /opt/hostedtoolcache/haxe
+          key: ${{ steps.restore-haxe.outputs.cache-primary-key }}
 
       # Try to build
       - run: haxe build.js.hxml
