@@ -18,6 +18,8 @@ jobs:
       fail-fast: true
     runs-on: ubuntu-latest
 
+    permissions: 
+      id-token: write
     steps:
       # Checkout & install haxe
       - uses: actions/checkout@v2
