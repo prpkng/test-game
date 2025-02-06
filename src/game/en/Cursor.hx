@@ -25,7 +25,7 @@ class Cursor extends Entity {
 
 		var mp = new Vector(camera.worldMouseX, camera.worldMouseY);
 
-		if (player.ca.getAnalogDistXY(LookX, LookY) > 0 || player.ca.getAnalogDist4(MoveLeft, MoveRight, MoveUp, MoveDown) > 0) {
+		if (player.ca.getPadLeftStickDist() > 0 || player.ca.getPadRightStickDist() > 0) {
 			isUsingGamepad = true;
 		} else if (mp != lastMousePos) {
 			isUsingGamepad = false;
