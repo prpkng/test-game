@@ -142,6 +142,7 @@ class DebugDrone extends Entity {
 
 		// Display FPS
 		debug( M.round(hxd.Timer.fps()) + " FPS" );
+		debug( "Zoom " + camera.zoom);
 
 		// Collisions
 		if( level.hasCollision(cx,cy) )

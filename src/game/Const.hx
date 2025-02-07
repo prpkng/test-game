@@ -29,7 +29,8 @@ class Const {
 	public static var SCALE(get,never) : Float;
 		static inline function get_SCALE() {
 			// can be replaced with another way to determine the game scaling
-			return dn.heaps.Scaler.fill_f(640.0, 360.0, null, null, true);
+			// return dn.heaps.Scaler.fill_f(640.0, 360.0, null, null, true);
+			return dn.heaps.Scaler.bestFit_i(240, 240);
 		}
 
 	/** Specific scaling for top UI elements **/

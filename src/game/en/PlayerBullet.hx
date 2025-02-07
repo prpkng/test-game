@@ -7,11 +7,14 @@ import dn.heaps.filter.PixelOutline;
 import h3d.Vector;
 
 class PlayerBullet extends Entity {
+	static public var ALL:FixedArray<PlayerBullet> = new FixedArray<PlayerBullet>(16);
+
 	var bulletSpeed = 1.95;
 	var moveDir:Vector;
 
 	var trail:Trail;
 	var bulletSprite:HSprite;
+
 
 	public function new(player:TopDownPlayer, dir:Vector) {
 		super(0, 0);
@@ -19,6 +22,7 @@ class PlayerBullet extends Entity {
 			dispose();
 			return;
 		}
+		ALL.push(this);
 		dir.normalize();
 		setPosPixel(player.attachX + dir.x * 8, player.attachY + 3 + dir.y * 6);
 
@@ -40,7 +44,8 @@ class PlayerBullet extends Entity {
         cd.onComplete("destroy", () -> {
             dispose();
         });
-
+		
+		
 	}
 
 	override function fixedUpdate() {
@@ -48,6 +53,12 @@ class PlayerBullet extends Entity {
 		vBase.dy = moveDir.y * bulletSpeed;
         super.fixedUpdate();
 	}
+
+	override function dispose() {
+		ALL.remove(this);
+		super.dispose();
+	}
+
 }
 
 

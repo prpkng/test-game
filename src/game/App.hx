@@ -39,8 +39,6 @@ class App extends dn.Process {
 		Console.ME.enableStats();
 		#end
 
-		new Letterboxing();
-
 		startGame();
 	}
 
