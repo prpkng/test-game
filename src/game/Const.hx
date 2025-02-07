@@ -26,10 +26,10 @@ class Const {
 	}
 
 	/** Viewport scaling **/
-	public static var SCALE(get,never) : Int;
+	public static var SCALE(get,never) : Float;
 		static inline function get_SCALE() {
 			// can be replaced with another way to determine the game scaling
-			return dn.heaps.Scaler.bestFitAspectRatioWid_i(400, 16.0/9.0);
+			return dn.heaps.Scaler.fill_f(640.0, 360.0, null, null, true);
 		}
 
 	/** Specific scaling for top UI elements **/
