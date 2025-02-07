@@ -8,8 +8,8 @@ class SampleGame extends Game {
 		super();
 	}
 
-	override function startLevel(l:World_Level) {
-		super.startLevel(l);
+	override function startLevel() {
+		super.startLevel();
 		new TopDownPlayer();
 	}
 }

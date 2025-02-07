@@ -31,20 +31,23 @@ class PlayerBullet extends Entity {
 
 		bulletSprite = new HSprite(Assets.mainAtlas, "Bullet", spr);
 		bulletSprite.rotation = Math.atan2(dir.y, dir.x);
-		bulletSprite.filter = new PixelOutline(0xffffffff);
+		bulletSprite.filter = new PixelOutline(0x4e2b45);
 		bulletSprite.setCenterRatio(0.5, 0.5);
 
-		trail = Trail.create(spr, 8, 3);
+		trail = Trail.create(spr, Col.inlineHex("#ff4e2b45"), 8, 3);
 
         cd.setS("destroy", 1.5);
         cd.onComplete("destroy", () -> {
             dispose();
         });
+
 	}
 
 	override function fixedUpdate() {
-        super.fixedUpdate();
-        vBase.dx = moveDir.x * bulletSpeed;
+		vBase.dx = moveDir.x * bulletSpeed;
 		vBase.dy = moveDir.y * bulletSpeed;
+        super.fixedUpdate();
 	}
 }
+
+

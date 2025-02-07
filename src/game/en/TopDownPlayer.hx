@@ -38,10 +38,11 @@ class TopDownPlayer extends Entity {
 		super(5, 5);
 
 		// Start point using level entity "PlayerStart"
-		var start = level.data.l_Entities.all_PlayerStart[0];
-		if (start != null)
-			setPosCase(start.cx, start.cy);
-
+		if (level is LDtkLevel) {
+			var start = (cast (level, LDtkLevel)).data.l_Entities.all_PlayerStart[0];
+			if (start != null)
+				setPosPixel(start.pixelX, start.pixelY);
+		}
 		// Misc inits
 		vBase.setFricts(0.1, 0.1);
 
@@ -127,10 +128,7 @@ class TopDownPlayer extends Entity {
 
 			cursor.shakeS(.75, .75, .25);
 
-			var dir = new Vector(
-				cursor.attachX - attachX,
-				cursor.attachY - attachY
-			);
+			var dir = new Vector(cursor.attachX - attachX, cursor.attachY - attachY);
 
 			new PlayerBullet(this, dir);
 		}
@@ -162,7 +160,6 @@ class TopDownPlayer extends Entity {
 				weapon.visible = true;
 			case _:
 				return;
-
 		}
 	}
 

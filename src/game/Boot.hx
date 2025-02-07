@@ -18,6 +18,7 @@ class Boot extends hxd.App {
 		App entry point: everything starts here
 	**/
 	static function main() {
+		
 		new Boot();
 	}
 

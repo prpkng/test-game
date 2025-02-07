@@ -25,11 +25,14 @@ class Trail extends Entity {
 	var trailLifetimeFrames = 30;
 
 	var sizeEase:IEasing;
+	var trailColor:Col;
 
-	public static function create(parent:Object, lifetimeFrames:Int, addingDelay:Int) {
+	public static function create(parent:Object, color: Col, lifetimeFrames:Int, addingDelay:Int) {
 		var trail = new Trail(parent);
 
 		trail.noSprite();
+		trail.trailColor = color.withAlphaIfMissing();
+		trace(trail.trailColor);
 		trail.graphics = new Graphics(parent);
 		trail.trailLifetimeFrames = lifetimeFrames;
 		trail.addingDelay = addingDelay;
@@ -95,12 +98,12 @@ class Trail extends Entity {
 			var lineSize = sizeEase.calculate(point.lifetime / trailLifetimeFrames) * 8 / 2;
 
             if (i == 0) {
-                graphics.addVertex(0 + dir.x * lineSize, 0 + dir.y * lineSize, 255, 255, 255, 255);
+                graphics.addVertex(0 + dir.x * lineSize, 0 + dir.y * lineSize, trailColor.rf, trailColor.bf, trailColor.gf, trailColor.af);
                 postPoints[points.length - 1 - i] = new Point(0 - dir.x * lineSize, 0 - dir.y * lineSize);
                 i++;
             }
 
-			graphics.addVertex(curX + dir.x * lineSize, curY + dir.y * lineSize, 255, 255, 255, 255);
+			graphics.addVertex(curX + dir.x * lineSize, curY + dir.y * lineSize, trailColor.rf, trailColor.bf, trailColor.gf, trailColor.af);
 			postPoints[points.length - 1 - i] = new Point(curX - dir.x * lineSize, curY - dir.y * lineSize);
 
 			lastX = curX;
@@ -109,7 +112,7 @@ class Trail extends Entity {
 		}
 
 		for (point in postPoints) {
-			graphics.addVertex(point.x, point.y, 255, 255, 255, 255);
+			graphics.addVertex(point.x, point.y, trailColor.rf, trailColor.bf, trailColor.gf, trailColor.af);
 		}
 
 		graphics.endFill();

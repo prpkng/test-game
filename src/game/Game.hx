@@ -41,7 +41,7 @@ class Game extends AppChildProcess {
 		hud = new ui.Hud();
 		camera = new Camera();
 
-		startLevel(Assets.worldData.all_worlds.SampleWorld.all_levels.FirstLevel);
+		startLevel();
 	}
 
 
@@ -56,7 +56,7 @@ class Game extends AppChildProcess {
 
 
 	/** Load a level **/
-	function startLevel(l:World.World_Level) {
+	function startLevel() {
 		if( level!=null )
 			level.destroy();
 		fx.clear();
@@ -64,7 +64,7 @@ class Game extends AppChildProcess {
 			e.destroy();
 		garbageCollectEntities();
 
-		level = new Level(l);
+		level = new LDtkLevel(Assets.worldData.all_worlds.Bosses.all_levels.Snooker);
 		// <---- Here: instanciate your level entities
 
 		camera.centerOnTarget();
@@ -86,8 +86,8 @@ class Game extends AppChildProcess {
 	@:allow(assets.Assets)
 	function onLdtkReload() {
 		hud.notify("LDtk reloaded");
-		if( level!=null )
-			startLevel( Assets.worldData.all_worlds.SampleWorld.getLevel(level.data.uid) );
+		// if( level!=null )
+		// 	startLevel( Assets.worldData.all_worlds.SampleWorld.getLevel(level.data.uid) );
 	}
 
 	/** Window/app resize event **/
