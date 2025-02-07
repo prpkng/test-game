@@ -29,7 +29,7 @@ class Const {
 	public static var SCALE(get,never) : Int;
 		static inline function get_SCALE() {
 			// can be replaced with another way to determine the game scaling
-			return dn.heaps.Scaler.bestFit_i(400,225);
+			return dn.heaps.Scaler.bestFitAspectRatioWid_i(400, 16.0/9.0);
 		}
 
 	/** Specific scaling for top UI elements **/
@@ -54,6 +54,7 @@ class Const {
 	public static var DP_FX_FRONT = _inc++;
 	public static var DP_TOP = _inc++;
 	public static var DP_UI = _inc++;
+	public static var DP_MAX = _inc++;
 
 
 	/**
