@@ -1,5 +1,7 @@
 package sample;
 
+import echo.data.Types.ForceType;
+import dn.RandomTools;
 import echo.Shape;
 import echo.Echo;
 
@@ -44,8 +46,19 @@ class SampleGame extends Game {
 			}
 		]);
 
-		var circ = new en.PhysObject(256, -32).body;
-		circ.add_shape(Shape.circle(0, 0, 48 * Const.PTM));
+		for (i in 0...4) {
+			var circ = new en.PhysObject(R.rnd(224.0, 384.0), R.rnd(208, 256)).body;
+			circ.add_shape(Shape.circle(0, 0, 24 * Const.PTM));
+			circ.material.elasticity = 1;
+			var randAngle = R.rnd(0, 360) * M.DEG_RAD;
+			var force = 3;
+			circ.push(
+				Math.cos(randAngle * force), 
+				Math.sin(randAngle * force), 
+				false, 
+				ForceType.VELOCITY
+			);
+		}
 	}
 
 	override function preUpdate() {

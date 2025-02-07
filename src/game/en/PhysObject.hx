@@ -14,13 +14,12 @@ class PhysObject extends Entity {
 	var debugPhysShape:Null<Graphics>;
 	var invalidateDebugPhysShape:Bool;
 
-	public function new(x, y, isStatic = false, ?shapes:Array<ShapeOptions>) {
-		super(x, y);
+	public function new(x: Float, y: Float, isStatic = false, ?shapes:Array<ShapeOptions>) {
+		super(cast x, cast y);
 		body = PhysWorld.world.make({
 			mass: isStatic ? 0 : 1,
 			x: x * Const.PTM,
 			y: y * Const.PTM,
-			material: {elasticity: 0.5},
 			shapes: shapes
 		});
 		trace('${(body.x)},${(body.y)}');
@@ -44,7 +43,6 @@ class PhysObject extends Entity {
 
 	function enableDebugPhysShape() {
 		if (debugPhysShape == null) {
-			trace("Debug shape enabled!");
 			debugPhysShape = new Graphics(spr);
 			invalidateDebugPhysShape = true;
 		}
@@ -59,8 +57,6 @@ class PhysObject extends Entity {
 
 	function renderDebugPhysShape() {
 		invalidateDebugPhysShape = false;
-
-		trace("Debug shape re-rendered!");
 
 		debugPhysShape.clear();
 		for (shape in body.shapes) {

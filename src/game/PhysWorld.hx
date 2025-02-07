@@ -15,7 +15,7 @@ class PhysWorld {
 			{
 				width: 64,
 				height: 64,
-                gravity_y: 9.8 * Const.PTM
+                // gravity_y: 9.8 * Const.PTM
 			}
 		);
     }
