@@ -17,5 +17,6 @@
 --cmd haxelib --always git deepnightLibs https://github.com/deepnight/deepnightLibs.git
 
 --cmd haxelib --always install hxease
+--cmd haxelib --always install echo
 # Done
 --cmd haxelib list

@@ -12,7 +12,8 @@ class Const {
 		"Fixed" updates framerate. 30fps is a good value here, as it's almost guaranteed to work on any decent setup, and it's more than enough to run any gameplay related physics.
 	**/
 	public static final FIXED_UPDATE_FPS = 30;
-
+	public static final MTP = 100.0;
+	public static final PTM = 1.0 / MTP;
 	/** Grid size in pixels **/
 	public static final GRID = 16;
 
@@ -37,7 +38,7 @@ class Const {
 	public static var UI_SCALE(get,never) : Float;
 		static inline function get_UI_SCALE() {
 			// can be replaced with another way to determine the UI scaling
-			return dn.heaps.Scaler.bestFit_i(1280,720);
+			return dn.heaps.Scaler.bestFit_i(240, 240);
 		}
 
 

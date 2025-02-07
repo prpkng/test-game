@@ -36,7 +36,7 @@ class Hud extends GameChildProcess {
 	}
 
 	/** Display a debug string **/
-	public inline function debug(v:Dynamic, clear=true) {
+	public inline function debug(v:Dynamic, clear=false) {
 		if( clear )
 			debugText.text = Std.string(v);
 		else

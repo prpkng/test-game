@@ -5,6 +5,7 @@ enum abstract ConsoleFlag(Int) to Int from Int {
 	var F_CameraScrolling;
 	var F_Bounds;
 	var F_Affects;
+	var F_PhysicsShapes;
 }
 
 class Console extends h2d.Console {
@@ -32,6 +33,9 @@ class Console extends h2d.Console {
 		#if debug
 			// Debug console flags
 			flags = new Map();
+			#if PHYSICS_SHAPES
+			flags.set(ConsoleFlag.F_PhysicsShapes, true);
+			#end
 			allFlags = dn.MacroTools.getAbstractEnumValues(ConsoleFlag);
 			allFlags.sort( (a,b)->Reflect.compare(a.name, b.name) );
 			this.addCommand("flags", "Open the console flags window", [], function() {

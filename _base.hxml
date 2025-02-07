@@ -7,5 +7,6 @@
 -lib ldtk-haxe-api
 -lib heaps-aseprite
 -lib hxease
+-lib echo
 
 -main Boot
