@@ -14,6 +14,8 @@ class PhysObject extends Entity {
 	var debugPhysShape:Null<Graphics>;
 	var invalidateDebugPhysShape:Bool;
 
+	var target:Entity;
+
 	public function new(x: Float, y: Float, isStatic = false, ?shapes:Array<ShapeOptions>) {
 		super(cast x, cast y);
 		body = PhysWorld.world.make({

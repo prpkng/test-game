@@ -18,6 +18,7 @@ class Assets {
 
 	public static var player:SpriteLib;
 	public static var playerGun:SpriteLib;
+	public static var lineBall:SpriteLib;
 
 	/** LDtk world data **/
 	public static var worldData:World;
@@ -38,10 +39,9 @@ class Assets {
 		mainAtlas = dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.atlas.main_atlas.toAseprite());
 		uiAtlas = dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.atlas.ui_atlas.toAseprite());
 
-
 		player = dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.spr.player.toAseprite());
 		playerGun = dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.spr.player_gun.toAseprite());
-
+		lineBall = dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.spr.line_ball.toAseprite());
 		// Hot-reloading of CastleDB
 		#if debug
 		hxd.Res.data.watch(function() {
