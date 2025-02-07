@@ -32,13 +32,13 @@ class PhysObject extends Entity {
 		}
 
 		if (!isStatic) {
-			game.delayer.addMs(null, () -> {
+			// game.delayer.addMs(null, () -> {
 				PhysWorld.world.listen(
 					body,
 					PhysWorld.world.statics(),
 					{ separate: true }
 				);
-			}, 0.01);
+			// }, 0.01);
 		}
 	}
 
@@ -119,8 +119,6 @@ class PhysObject extends Entity {
 
 	override function postUpdate() {
 		super.postUpdate();
-
-		game.hud.debug('${attachX}, ${attachY}');
 
 		if (debugPhysShape != null && invalidateDebugPhysShape) {
 			renderDebugPhysShape();

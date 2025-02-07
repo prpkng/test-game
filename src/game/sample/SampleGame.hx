@@ -17,11 +17,35 @@ class SampleGame extends Game {
 		new PhysWorld();
 		new TopDownPlayer();
 
-		var circ = new en.PhysObject(256, 256).body;
+		new en.PhysObject(304, 264, true, [
+			{
+				type: RECT,
+				offset_y: -112 * Const.PTM,
+				width: 448 * Const.PTM,
+				height: 16 * Const.PTM
+			},
+			{
+				type: RECT,
+				offset_y: 112 * Const.PTM,
+				width: 448 * Const.PTM,
+				height: 16 * Const.PTM
+			},
+			{
+				type: RECT,
+				offset_x: -234 * Const.PTM,
+				width: 16 * Const.PTM,
+				height: 224 * Const.PTM
+			},
+			{
+				type: RECT,
+				offset_x: 234 * Const.PTM,
+				width: 16 * Const.PTM,
+				height: 224 * Const.PTM
+			}
+		]);
+
+		var circ = new en.PhysObject(256, -32).body;
 		circ.add_shape(Shape.circle(0, 0, 48 * Const.PTM));
-		var rect = new en.PhysObject(256, 256+128, true).body;
-		rect.add_shape(Shape.rect(0, 0, 128 * Const.PTM, 16 * Const.PTM));
-	
 	}
 
 	override function preUpdate() {
