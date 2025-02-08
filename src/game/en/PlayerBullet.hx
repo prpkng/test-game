@@ -40,11 +40,9 @@ class PlayerBullet extends Entity {
 
 		trail = Trail.create(spr, Col.inlineHex("#ff4e2b45"), 8, 3);
 
-        cd.setS("destroy", 1.5);
-        cd.onComplete("destroy", () -> {
+        game.delayer.addS(null, () -> {
             dispose();
-        });
-		
+        }, 1.5);
 		
 	}
 

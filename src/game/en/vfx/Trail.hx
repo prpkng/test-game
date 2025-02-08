@@ -101,12 +101,12 @@ class Trail extends Entity {
 
             if (i == 0) {
                 addV(0 + dir.x * lineSize, 0 + dir.y * lineSize);
-                postPoints[points.length - 1 - i] = new Point(0 - dir.x * lineSize, 0 - dir.y * lineSize);
+                postPoints[points.length - 1] = new Point(0 - dir.x * lineSize, 0 - dir.y * lineSize);
                 i++;
             }
 
 			addV(curX + dir.x * lineSize, curY + dir.y * lineSize);
-			postPoints[points.length - 1 - i] = new Point(curX - dir.x * lineSize, curY - dir.y * lineSize);
+			postPoints[points.length +1- i] = new Point(curX - dir.x * lineSize, curY - dir.y * lineSize);
 
 			lastX = curX;
 			lastY = curY;

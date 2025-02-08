@@ -21,7 +21,6 @@ class Console extends h2d.Console {
 		super(f, p);
 
 		logTxt.filter = new dn.heaps.filter.PixelOutline();
-		scale(2); // TODO smarter scaling for 4k screens
 		logTxt.condenseWhite = false;
 		errorColor = 0xff6666;
 
@@ -172,6 +171,7 @@ class Console extends h2d.Console {
 	}
 
 	override function getCommandSuggestion(cmd:String):String {
+		setScale(Const.UI_SCALE);
 		var sugg = super.getCommandSuggestion(cmd);
 		if( sugg.length>0 )
 			return sugg;

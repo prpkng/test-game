@@ -16,7 +16,7 @@ class PhysObject extends Entity {
 
 	var target:Entity;
 
-	public function new(x: Float, y: Float, isStatic = false, ?shapes:Array<ShapeOptions>) {
+	public function new(x:Float, y:Float, isStatic = false, ?shapes:Array<ShapeOptions>) {
 		super(cast x, cast y);
 		body = PhysWorld.world.make({
 			mass: isStatic ? 0 : 1,
@@ -34,15 +34,17 @@ class PhysObject extends Entity {
 
 		if (!isStatic) {
 			// game.delayer.addMs(null, () -> {
-				PhysWorld.world.listen(
-					body,
-					PhysWorld.world.statics(),
-					{ separate: true }
-				);
+			PhysWorld.world.listen(body, PhysWorld.world.statics(), {separate: true});
+			PhysWorld.world.listen(body, PhysWorld.world.dynamics(), {separate: true});
 			// }, 0.01);
 		}
+
+		#if debug
+		spr.colorize(0, 0);
+		#end
 	}
 
+	#if debug
 	function enableDebugPhysShape() {
 		if (debugPhysShape == null) {
 			debugPhysShape = new Graphics(spr);
@@ -78,31 +80,24 @@ class PhysObject extends Entity {
 				case RECT:
 					var rect:Rect = cast shape;
 					debugPhysShape.beginFill(0xff5050, 0.5);
-					debugPhysShape.drawRect(
-						shape.local_x * Const.MTP - rect.width/2*Const.MTP, 
-						shape.local_y * Const.MTP - rect.height/2*Const.MTP, 
-						rect.width * Const.MTP,
-						rect.height * Const.MTP
-					);
+					debugPhysShape.drawRect(shape.local_x * Const.MTP - rect.width / 2 * Const.MTP, shape.local_y * Const.MTP - rect.height / 2 * Const.MTP,
+						rect.width * Const.MTP, rect.height * Const.MTP);
 					debugPhysShape.endFill();
 					debugPhysShape.lineStyle(2, 0xffaaaa, 0.75);
 					debugPhysShape.moveTo(shape.local_x * Const.MTP, shape.local_y * Const.MTP);
 					var right = new Vector2(1, 0).rotate(shape.rotation);
-					debugPhysShape.lineTo(shape.local_x * Const.MTP + right.x * (rect.width/2 * Const.MTP),
-						shape.local_y * Const.MTP + right.y * (rect.width/2 * Const.MTP));
+					debugPhysShape.lineTo(shape.local_x * Const.MTP + right.x * (rect.width / 2 * Const.MTP),
+						shape.local_y * Const.MTP + right.y * (rect.width / 2 * Const.MTP));
 					debugPhysShape.setColor(0xffaaaa, 0.75);
-					debugPhysShape.drawRect(
-						shape.local_x * Const.MTP - rect.width/2*Const.MTP, 
-						shape.local_y * Const.MTP - rect.height/2*Const.MTP, 
-						rect.width * Const.MTP,
-						rect.height * Const.MTP
-					);
+					debugPhysShape.drawRect(shape.local_x * Const.MTP - rect.width / 2 * Const.MTP, shape.local_y * Const.MTP - rect.height / 2 * Const.MTP,
+						rect.width * Const.MTP, rect.height * Const.MTP);
 				// break;
 				case _:
 					continue;
 			}
 		}
 	}
+	#end
 
 	override function preUpdate() {
 		super.preUpdate();
@@ -117,9 +112,10 @@ class PhysObject extends Entity {
 
 	override function postUpdate() {
 		super.postUpdate();
-
+		#if debug
 		if (debugPhysShape != null && invalidateDebugPhysShape) {
 			renderDebugPhysShape();
 		}
+		#end
 	}
 }
