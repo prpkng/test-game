@@ -38,7 +38,7 @@ class Const {
 	public static var UI_SCALE(get,never) : Float;
 		static inline function get_UI_SCALE() {
 			// can be replaced with another way to determine the UI scaling
-			return dn.heaps.Scaler.bestFit_i(240, 240);
+			return dn.heaps.Scaler.bestFit_i(640, 360);
 		}
 
 

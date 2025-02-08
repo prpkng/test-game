@@ -1,4 +1,4 @@
 _base.hxml
--D windowSize=800x450
+-D windowSize=1280x720
 -hl bin/client.hl
 -lib hldx

@@ -22,7 +22,8 @@ class Console extends h2d.Console {
 
 		logTxt.filter = new dn.heaps.filter.PixelOutline();
 		logTxt.condenseWhite = false;
-		errorColor = 0xff6666;
+		errorColor = 0xff6666;		
+		setScale(Const.UI_SCALE);
 
 		// Settings
 		ME = this;
@@ -156,6 +157,7 @@ class Console extends h2d.Console {
 	public function enableStats() {
 		disableStats();
 		stats = new dn.heaps.StatsBox(App.ME);
+		stats.root.setScale(Const.UI_SCALE);
 		stats.addFpsChart();
 		stats.addDrawCallsChart();
 		#if hl
@@ -172,6 +174,7 @@ class Console extends h2d.Console {
 
 	override function getCommandSuggestion(cmd:String):String {
 		setScale(Const.UI_SCALE);
+		stats?.root.setScale(Const.UI_SCALE);
 		var sugg = super.getCommandSuggestion(cmd);
 		if( sugg.length>0 )
 			return sugg;
