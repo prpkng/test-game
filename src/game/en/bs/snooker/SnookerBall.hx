@@ -1,7 +1,7 @@
 package en.bs.snooker;
 
 class SnookerBall extends PhysObject {
-    final VELOCITY_TO_ANIM_RATIO = 0.18;
+    final VELOCITY_TO_ANIM_RATIO = 0.01125 * Const.MTP;
     final VELOCITY_TO_ANIM_POWER = 2;
     public function new(x:Float,y:Float) {
         super(x, y, false, [
