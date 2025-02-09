@@ -117,25 +117,35 @@ jobs:
         with:
           name: win-dev-gl
           path: redist/casiland-DEVELOPMENT_opengl_win.zip
+      
+      - name: Upload JS build files
+        uses: actions/upload-artifact@v4
+        with:
+          name: js
+          path: redist/js.zip
         
       
-
-    
   deploy:
     permissions:
       id-token: write
       pages: write
-      contents: write
+    
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      
+  
+  publish:
+    permissions:
+      id-token: write
+      contents: write
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Download directX platform build files
         uses: actions/download-artifact@v4
         with:
@@ -146,15 +156,20 @@ jobs:
         with:
           name: win-gl
       
-      - name: Download directX platform build files
+      - name: Download directX DEVELOPMENT platform build files
         uses: actions/download-artifact@v4
         with:
           name: win-dev-dx
       
-      - name: Download opengl platform build files
+      - name: Download opengl DEVELOPMENT platform build files
         uses: actions/download-artifact@v4
         with:
           name: win-dev-gl
+      
+      - name: Download JS platform build files
+        uses: actions/download-artifact@v4
+        with:
+          name: js
       
       - name: Upload other platform builds
         uses: softprops/action-gh-release@v2
@@ -166,4 +181,5 @@ jobs:
             casiland_opengl_win.zip
             casiland-DEVELOPMENT_directx.zip
             casiland-DEVELOPMENT_opengl_win.zip
+            js.zip
           prerelease: true
