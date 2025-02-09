@@ -32,6 +32,7 @@ class Const {
 			// can be replaced with another way to determine the game scaling
 			// return dn.heaps.Scaler.fill_f(640.0, 360.0, null, null, true);
 			return dn.heaps.Scaler.bestFit_f(640, 360);
+			// return dn.heaps.Scaler.bestFit_i(640, 360);
 		}
 
 	/** Specific scaling for top UI elements **/
