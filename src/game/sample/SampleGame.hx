@@ -51,7 +51,7 @@ class SampleGame extends Game {
 			var ball = new SnookerBall(R.rnd(224.0, 384.0), R.rnd(208, 256));
 			ball.body.material.elasticity = 0.9;
 			var randAngle = R.rnd(0, 360) * M.DEG_RAD;
-			var force = 15;
+			var force = 240;
 			ball.body.push(
 				Math.cos(randAngle) * force, 
 				Math.sin(randAngle) * force, 
