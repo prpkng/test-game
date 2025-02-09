@@ -48,9 +48,21 @@ jobs:
       # Run build
       # - run: haxe build.js.hxml
 
-      - uses: cedx/setup-hashlink@v6
+      # - uses: cedx/setup-hashlink@v6
+      #   with:
+      #     version: =latest
+
+      - uses: robinraju/release-downloader@v1
         with:
-          version: =latest
+          repository: 'HaxeFoundation/hashlink'
+          latest: true
+          preRelease: true
+          tag: latest
+          fileName: '*-win64.zip'
+          extract: true
+          out-file-path: hashlink
+      - run: cp hashlink C:/hostedtoolcache/windows/
+      - run: echo "C:/hostedtoolcache/windows/hashlink/" >> $GITHUB_PATH
       - run: which hl
 
       - name: Copy VC redist DLL to build output
