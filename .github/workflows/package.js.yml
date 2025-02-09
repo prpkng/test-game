@@ -1,4 +1,4 @@
-name: Package JS build
+name: Package builds
 
 on:
   push:
@@ -49,8 +49,13 @@ jobs:
       # Run build
       # - run: haxe build.js.hxml
 
+      - uses: cedx/setup-hashlink@v6
+        with:
+          version: latest
+      - run: hl --version
+
       - name: Package project
-        run: haxelib run redistHelper build.js.hxml -o redist -p GameBase
+        run: haxelib run redistHelper build.js.hxml build.directx.hxml build.opengl.hxml -o redist -p GameBase
         
       - name: Upload build files as artifact
         id: deployment
