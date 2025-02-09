@@ -10,8 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: windows-latest
     permissions: 
       id-token: write
     steps:
@@ -24,7 +23,7 @@ jobs:
         with:
           path: |
             /opt/hostedtoolcache/haxe
-          key: ubuntu-latest-${{ hashFiles('setup.hxml') }}
+          key: ${{ runner.os }}-${{ hashFiles('setup.hxml') }}
       
       - uses: krdlab/setup-haxe@v1
         # if: steps.restore-haxe.outputs.cache-hit != 'true'
@@ -53,8 +52,6 @@ jobs:
         with:
           version: latest
       - run: which hl
-      - run: echo "/opt/hostedtoolcache/hashlink/1.14.0/x64" >> "$GITHUB_PATH"
-      - run: ln -s /opt/hostedtoolcache/hashlink/1.14.0/x64/hl /opt/hostedtoolcache/haxe/4.3.3/x64/lib/redistHelper/0,7,6/redistFiles/hl64/
       - name: Package project
         run: haxelib run redistHelper build.js.hxml build.directx.hxml build.opengl.hxml -o redist -p GameBase
         
