@@ -22,7 +22,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: |
-            /opt/hostedtoolcache/haxe
+            C:/hostedtoolcache/windows/haxe
           key: ${{ runner.os }}-${{ hashFiles('setup.hxml') }}
       
       - uses: krdlab/setup-haxe@v1
@@ -42,7 +42,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: |
-            /opt/hostedtoolcache/haxe
+            C:/hostedtoolcache/windows/haxe
           key: ${{ steps.restore-haxe.outputs.cache-primary-key }}
 
       # Run build
@@ -52,6 +52,10 @@ jobs:
         with:
           version: latest
       - run: which hl
+
+      - name: Copy VC redist DLL to build output
+        run: cp msvcr120.dll "C:/hostedtoolcache/windows/haxe/4.3.3/x64/lib/redistHelper/0,7,6/redistFiles/hl64/"
+
       - name: Package project
         run: haxelib run redistHelper build.js.hxml build.directx.hxml build.opengl.hxml -o redist -p GameBase
         
