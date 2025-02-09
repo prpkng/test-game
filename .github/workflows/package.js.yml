@@ -57,13 +57,27 @@ jobs:
         run: cp msvcr120.dll "C:/hostedtoolcache/windows/haxe/4.3.3/x64/lib/redistHelper/0,7,6/redistFiles/hl64/"
 
       - name: Package project
-        run: haxelib run redistHelper build.js.hxml build.directx.hxml build.opengl.hxml -o redist -p GameBase
+        run: haxelib run redistHelper build.js.hxml build.directx.hxml build.opengl.hxml -o redist -p casiland
         
-      - name: Upload build files as artifact
+      - name: Upload JS build files as pages artifact
         id: deployment
         uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
         with:
           path: redist/js
+      
+      - name: Upload directX platform build files
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-dx
+          path: redist/casiland_directx.zip
+      
+      - name: Upload opengl platform build files
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-gl
+          path: redist/casiland_opengl.zip
+      
+
     
   deploy:
     permissions:
@@ -78,3 +92,23 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      
+      - name: Download directX platform build files
+        uses: actions/download-artifact@v4
+        with:
+          name: win-dx
+      
+      - name: Download opengl platform build files
+        uses: actions/download-artifact@v4
+        with:
+          name: win-gl
+      
+      - name: Upload other platform builds
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Nigthly Build
+          tag_name: nightly
+          files: |
+            casiland_directx.zip
+            casiland_opengl.zip
+          
