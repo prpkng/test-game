@@ -72,7 +72,7 @@ jobs:
       - run: |
           echo "Hashlink version: ${{ steps.split.outputs._0 }}"
           tree ${{ steps.split.outputs._0 }}
-          cp ${{ steps.split.outputs._0 }} C:/hostedtoolcache/windows/hashlink
+      - run: Copy-Item -Path ${{ steps.split.outputs._0 }} -Destination C:/hostedtoolcache/windows/hashlink -Recurse
       - run: Add-Content $env:GITHUB_PATH "C:/hostedtoolcache/windows/hashlink"
       - run: ls C:/hostedtoolcache/windows/
       - run: tree C:/hostedtoolcache/windows/hashlink
