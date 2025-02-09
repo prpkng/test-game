@@ -62,15 +62,21 @@ jobs:
           fileName: '*-win64.zip'
           extract: true
           out-file-path: hashlink
+      - name: Pre Split filename
+        id: pre-split
+        uses: jungwinter/split@master 
+        with:
+          msg: ${{fromJson(steps.download-hl.outputs.downloaded_files)[0]}}
+          separator: hashlink-
       - name: Split filename
-        shell: bash 
         id: split
-        env:
-          ZIP_FNAME: ${{fromJson(steps.download-hl.outputs.downloaded_files)[0]}}
-        run: echo "result=${ZIP_FNAME%%*/##.zip}" >> $GITHUB_OUTPUT 
+        uses: jungwinter/split@master 
+        with:
+          msg: ${{steps.pre-split.outputs._1}}
+          separator: .zip
       - run: |
-          echo "Hashlink version: ${{ steps.split.outputs.result }}"
-          cp hashlink/${{ steps.split.outputs.result }} C:/hostedtoolcache/windows/hashlink
+          echo "Hashlink version: ${{ steps.split.outputs._0 }}"
+          cp hashlink/${{ steps.split.outputs._0 }} C:/hostedtoolcache/windows/hashlink
       - run: Add-Content $env:GITHUB_PATH "C:/hostedtoolcache/windows/hashlink"
       - run: ls C:/hostedtoolcache/windows/
       - run: tree C:/hostedtoolcache/windows/hashlink
