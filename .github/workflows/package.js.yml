@@ -78,7 +78,7 @@ jobs:
           limit: -1
       - run: |
           echo "Hashlink version: ${{ steps.split.outputs._0 }}"
-          cp hashlink/${{ steps.split.outputs._0 }} C:/hostedtoolcache/windows/hashlink
+          cp hashlink/hashlink-${{ steps.split.outputs._0 }} C:/hostedtoolcache/windows/hashlink
       - run: Add-Content $env:GITHUB_PATH "C:/hostedtoolcache/windows/hashlink"
       - run: ls C:/hostedtoolcache/windows/
       - run: tree C:/hostedtoolcache/windows/hashlink
