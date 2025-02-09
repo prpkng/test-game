@@ -104,7 +104,7 @@ jobs:
       
       
       - name: Package project
-        run: haxelib run redistHelper build.dev.dx.hxml build.dev.gl.hxml -o redist -p casiland-DEVELOPMENT -zip
+        run: haxelib run redistHelper build.dev.dx.hxml build.dev.gl.hxml res -o redist -p casiland-DEVELOPMENT -zip
       
       - name: Upload directX DEVELOPMENT build files
         uses: actions/upload-artifact@v4
