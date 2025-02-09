@@ -62,23 +62,17 @@ jobs:
           fileName: '*-win64.zip'
           extract: true
           out-file-path: hashlink
-      - name: Pre Split filename
-        id: pre-split
-        uses: xom9ikk/split@v1 
-        with:
-          string: ${{fromJson(steps.download-hl.outputs.downloaded_files)[0]}}
-          separator: hashlink-
-          limit: -1
       - name: Split filename
         id: split
         uses: xom9ikk/split@v1 
         with:
-          string: ${{steps.pre-split.outputs._1}}
+          string: ${{fromJson(steps.download-hl.outputs.downloaded_files)[0]}}
           separator: .zip
           limit: -1
       - run: |
           echo "Hashlink version: ${{ steps.split.outputs._0 }}"
-          cp hashlink/hashlink-${{ steps.split.outputs._0 }} C:/hostedtoolcache/windows/hashlink
+          tree ${{ steps.split.outputs._0 }}
+          cp ${{ steps.split.outputs._0 }} C:/hostedtoolcache/windows/hashlink
       - run: Add-Content $env:GITHUB_PATH "C:/hostedtoolcache/windows/hashlink"
       - run: ls C:/hostedtoolcache/windows/
       - run: tree C:/hostedtoolcache/windows/hashlink
