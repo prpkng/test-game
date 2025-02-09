@@ -20,6 +20,8 @@ class MainPlayer extends Entity {
 	final ROLL_COOLDOWN_SECS = 0.4;
 	final ROLL_IVULNERABLE_SECS = 0.25;
 	final ROLL_AFFECT_SECS = 0.25;
+	
+	final HIT_IVULNERABLE_SECS = 1.5;
 
 	var velocity = new Vector();
 	var moveSpeed = 0.0975;
@@ -83,6 +85,8 @@ class MainPlayer extends Entity {
 		camera.shakeS(.25, 4);
 		blink(Col.white(), 0.1);
 		fx.flashBangS(Col.red(), 0.35, .5);
+
+		setAffectS(Affect.PlayerIvulnerable, HIT_IVULNERABLE_SECS);
 	}
 
 	override function dispose() {
@@ -151,7 +155,7 @@ class MainPlayer extends Entity {
 			rollingDirection.normalize();
 			setAffectS(Affect.PlayerRolling, ROLL_AFFECT_SECS);
 			setAffectS(Affect.PlayerIvulnerable, ROLL_IVULNERABLE_SECS);
-			cd.setS("RollCooldown", ROLL_COOLDOWN_SECS);
+			cd.setS("RollCooldown", ROLL_COOLDOWN_SECS, false);
 			spr.anim.play("Roll");
 			weapon.visible = false;
 			sprScaleX = velocity.x < 0 ? -1 : 1;
