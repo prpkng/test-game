@@ -21,8 +21,8 @@ class MainPlayer extends Entity {
 	final ROLL_AFFECT_SECS = 0.25;
 
 	var velocity = new Vector();
-	var moveSpeed = 0.195;
-	var rollSpeed = 0.60;
+	var moveSpeed = 0.0975;
+	var rollSpeed = 0.3;
 
 	var rollingDirection:Vector;
 

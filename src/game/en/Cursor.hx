@@ -13,7 +13,7 @@ class Cursor extends Entity {
 	var lastMousePos = new Point();
 
 	public function new(player:MainPlayer) {
-		super(0, 0);
+		super(0, 0, Const.DP_MAX);
 
 		this.player = player;
 		spr.set(Assets.uiAtlas, "Crosshair");

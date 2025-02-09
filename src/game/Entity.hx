@@ -193,7 +193,7 @@ class Entity {
 	/**
 		Constructor
 	**/
-    public function new(x:Int, y:Int) {
+    public function new(x:Int, y:Int, ?layer:Null<Int>) {
         uid = Const.makeUniqueId();
 		ALL.push(this);
 
@@ -210,7 +210,7 @@ class Entity {
 		vBump = registerNewVelocity(0.93);
 
         spr = new HSprite(Assets.tiles);
-		Game.ME.scroller.add(spr, Const.DP_MAIN);
+		Game.ME.scroller.add(spr, layer ?? Const.DP_MAIN);
 		spr.colorAdd = new h3d.Vector();
 		baseColor = new h3d.Vector();
 		blinkColor = new h3d.Vector();

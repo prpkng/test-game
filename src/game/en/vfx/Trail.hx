@@ -35,11 +35,13 @@ class Trail extends Entity {
 		trail.graphics = new Graphics(parent);
 		trail.trailLifetimeFrames = lifetimeFrames;
 		trail.addingDelay = addingDelay;
-		trail.sizeEase = Linear.easeNone;
+		trail.sizeEase = hxease.Sine.easeIn;
+
+		trail.addPointPos(parent.x, parent.y);
         return trail;
 	}
 
-	public function new(parent:Object) {
+	function new(parent:Object) {
 		super(0, 0);
 
 		noSprite();
@@ -49,8 +51,12 @@ class Trail extends Entity {
 	}
 
 	function addPoint() {
+		addPointPos(graphics.parent.x, graphics.parent.y);
+	}
+
+	function addPointPos(x, y) {
 		points.insert(0, {
-			point: new Point(graphics.parent.x, graphics.parent.y),
+			point: new Point(x, y),
 			lifetime: trailLifetimeFrames
 		});
 	}
@@ -84,7 +90,7 @@ class Trail extends Entity {
 		var lastX = 0.0;
 		var lastY = 0.0;
 
-		var postPoints = new Vector(points.length+1, new Point(0, 0));
+		var postPoints:Array<Point> = new Array();
 		var i = 0;
 
 		var addV = (x, y) -> {
@@ -95,24 +101,19 @@ class Trail extends Entity {
 			var curX = point.point.x - graphics.parent.x;
 			var curY = point.point.y - graphics.parent.y;
 
-			var dir = new Point(curX - lastX, curY - lastY).normalized().perp();
+			var perp = new Point(curX - lastX, curY - lastY).normalized().perp();
 
 			var lineSize = sizeEase.calculate(point.lifetime / trailLifetimeFrames) * 8 / 2;
 
-            if (i == 0) {
-                addV(0 + dir.x * lineSize, 0 + dir.y * lineSize);
-                postPoints[points.length - 1] = new Point(0 - dir.x * lineSize, 0 - dir.y * lineSize);
-                i++;
-            }
-
-			addV(curX + dir.x * lineSize, curY + dir.y * lineSize);
-			postPoints[points.length +1- i] = new Point(curX - dir.x * lineSize, curY - dir.y * lineSize);
+			addV(curX + perp.x * lineSize, curY + perp.y * lineSize);
+			postPoints.push(new Point(curX - perp.x * lineSize, curY - perp.y * lineSize));
 
 			lastX = curX;
 			lastY = curY;
 			i++;
 		}
-
+		
+		postPoints.reverse();
 		for (point in postPoints) {
 			addV(point.x, point.y);
 		}

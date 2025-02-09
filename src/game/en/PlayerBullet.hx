@@ -8,7 +8,7 @@ import dn.heaps.filter.PixelOutline;
 class PlayerBullet extends Entity {
 	static public var ALL:FixedArray<PlayerBullet> = new FixedArray<PlayerBullet>(16);
 
-	var bulletSpeed = 1.95;
+	var bulletSpeed = 0.975;
 	var moveDir:Vector2;
 
 	var trail:Trail;
@@ -16,15 +16,14 @@ class PlayerBullet extends Entity {
 
 
 	public function new(player:MainPlayer, dir:Vector2) {
-		super(0, 0);
+		super(player.cx, player.cy);
 		if (dir.length_sq < 0.05) {
 			dispose();
 			return;
 		}
 		ALL.push(this);
 		dir.normalize();
-		setPosPixel(player.attachX + dir.x * 8, player.attachY + 3 + dir.y * 6);
-
+		setPosPixel(player.attachX + dir.x * 4, player.attachY + 3 + dir.y * 4);
 		vBase.setFricts(0, 0);
 		moveDir = dir;
 
@@ -36,7 +35,7 @@ class PlayerBullet extends Entity {
 		bulletSprite.rotation = Math.atan2(dir.y, dir.x);
 		bulletSprite.filter = new PixelOutline(0x4e2b45);
 		bulletSprite.setCenterRatio(0.5, 0.5);
-
+		postUpdate();
 		trail = Trail.create(spr, Col.inlineHex("#ff4e2b45"), 8, 3);
 
         game.delayer.addS(null, () -> {
