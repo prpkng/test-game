@@ -53,6 +53,7 @@ jobs:
       #     version: =latest
 
       - uses: robinraju/release-downloader@v1
+        id: download-hl
         with:
           repository: 'HaxeFoundation/hashlink'
           latest: true
@@ -61,8 +62,13 @@ jobs:
           fileName: '*-win64.zip'
           extract: true
           out-file-path: hashlink
-      - run: cp hashlink C:/hostedtoolcache/windows/
-      - run: echo "C:/hostedtoolcache/windows/hashlink/" >> $GITHUB_PATH
+      - env:
+          ZIP_FNAME: ${{steps.download-hl.outputs.downloaded_files[0]}}
+        run: |
+          cp hashlink/${ZIP_FNAME##.zip} C:/hostedtoolcache/windows/hashlink
+          Add-Content $env:GITHUB_PATH "C:/hostedtoolcache/windows/hashlink"
+      - run: ls C:/hostedtoolcache/windows/
+      - run: tree C:/hostedtoolcache/windows/hashlink
       - run: which hl
 
       - name: Copy VC redist DLL to build output
