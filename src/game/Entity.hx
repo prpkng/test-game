@@ -654,9 +654,9 @@ class Entity {
 	}
 
 	/** Blink `spr` briefly (eg. when damaged by something) **/
-	public function blink(c:Col) {
+	public function blink(c:Col, duration=0.06) {
 		blinkColor.setColor(c);
-		cd.setS("keepBlink",0.06);
+		cd.setS("keepBlink",duration);
 	}
 
 	public function shakeS(xPow:Float, yPow:Float, t:Float) {

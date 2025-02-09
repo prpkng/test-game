@@ -1,5 +1,6 @@
 package en;
 
+import echo.Body;
 import en.vfx.Trail;
 import h3d.scene.Mesh;
 import h3d.prim.Cube;
@@ -73,9 +74,15 @@ class MainPlayer extends Entity {
 		boxCaster.getTargets = () -> {
 			return PhysWorld.ME.hazards.mapToArray(b -> b);
 		}
-		boxCaster.onEnter = b -> {
-			hud.notify('Player hit: {body_id=${(b.id)}}', 0xff2020);
-		}
+		boxCaster.onEnter = playerHit;
+	}
+
+	public function playerHit(b: Body) {
+		hud.notify('Player hit: {body_id=${(b.id)}}', 0xff2020);
+
+		camera.shakeS(.25, 4);
+		blink(Col.white(), 0.1);
+		fx.flashBangS(Col.red(), 0.35, .5);
 	}
 
 	override function dispose() {
