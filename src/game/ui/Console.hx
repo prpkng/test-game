@@ -3,9 +3,9 @@ package ui;
 enum abstract ConsoleFlag(Int) to Int from Int {
 	var F_Camera;
 	var F_CameraScrolling;
+	var F_PhysicsShapes;
 	var F_Bounds;
 	var F_Affects;
-	var F_PhysicsShapes;
 }
 
 class Console extends h2d.Console {

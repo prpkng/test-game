@@ -72,6 +72,9 @@ class MainPlayer extends Entity {
 		boxCaster.getTargets = () -> {
 			return PhysWorld.ME.hazards.mapToArray(b -> b);
 		}
+		boxCaster.onEnter = b -> {
+			hud.notify('Player hit: {body_id=${(b.id)}}', 0xff2020);
+		}
 	}
 
 	override function dispose() {
@@ -193,5 +196,6 @@ class MainPlayer extends Entity {
 		super.fixedUpdate();
 
 		boxCaster.setPosition(attachX, attachY);
+		boxCaster.check();
 	}
 }

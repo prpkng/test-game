@@ -38,4 +38,14 @@ class PhysObject extends Entity {
 			// }, 0.01);
 		}
 	}
+
+	override function postUpdate() {
+		super.postUpdate();
+
+		#if debug
+		if (Console.ME.hasFlag(F_PhysicsShapes) || Console.ME.hasFlag(F_Bounds)){
+			debug('BodyID=${body.id}');
+		}
+		#end
+	}
 }
