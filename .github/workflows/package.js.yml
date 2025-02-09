@@ -62,14 +62,15 @@ jobs:
           fileName: '*-win64.zip'
           extract: true
           out-file-path: hashlink
-      - env:
-          ZIP_FNAME: ${{steps.download-hl.outputs.downloaded_files[0]}}
+      - name: Split filename
         shell: bash 
-        run: |
-          echo "Hashlink version: ${{steps.download-hl.outputs.downloaded_files[0]}}"
-          echo "Hashlink version: ${ZIP_FNAME}"
-          echo "Hashlink version: ${ZIP_FNAME##.zip}"
-          cp hashlink/${ZIP_FNAME##.zip} C:/hostedtoolcache/windows/hashlink
+        id: split
+        env:
+          ZIP_FNAME: ${{fromJson(steps.download-hl.outputs.downloaded_files)[0]}}
+        run: echo "result=${ZIP_FNAME%%*/##.zip}" >> $GITHUB_OUTPUT 
+      - run: |
+          echo "Hashlink version: ${{ steps.split.outputs.result }}"
+          cp hashlink/${{ steps.split.outputs.result }} C:/hostedtoolcache/windows/hashlink
       - run: Add-Content $env:GITHUB_PATH "C:/hostedtoolcache/windows/hashlink"
       - run: ls C:/hostedtoolcache/windows/
       - run: tree C:/hostedtoolcache/windows/hashlink
