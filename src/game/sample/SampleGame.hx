@@ -1,5 +1,6 @@
 package sample;
 
+import echo.math.Vector2;
 import en.bs.snooker.SnookerBall;
 import echo.data.Types.ForceType;
 import dn.RandomTools;
@@ -20,7 +21,13 @@ class SampleGame extends Game {
 		new PhysWorld();
 		new MainPlayer();
 
-		new en.PhysObject(304, 264, true, [
+		var levelCenter = Vector2.zero;
+		if (level is LDtkLevel) {
+			var center = (cast(level, LDtkLevel)).data.l_Entities.all_CenterMarker[0];
+			levelCenter.set(center.pixelX, center.pixelY);
+		}
+
+		new en.PhysObject(levelCenter.x, levelCenter.y, true, [
 			{
 				type: RECT,
 				offset_y: -112 * Const.PTM,
@@ -48,7 +55,7 @@ class SampleGame extends Game {
 		]);
 
 		for (i in 0...4) {
-			var ball = new SnookerBall(R.rnd(224.0, 384.0), R.rnd(208, 256));
+			var ball = new SnookerBall(R.rnd(levelCenter.x - 128, levelCenter.x + 128), R.rnd(levelCenter.y - 128, levelCenter.y + 128));
 			ball.body.material.elasticity = 0.9;
 			var randAngle = R.rnd(0, 360) * M.DEG_RAD;
 			var force = 240;
