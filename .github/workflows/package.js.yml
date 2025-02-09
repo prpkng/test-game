@@ -86,6 +86,12 @@ jobs:
         uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
         with:
           path: redist/js
+          
+      - name: Upload JS build files alone
+        uses: actions/upload-artifact@v4
+        with:
+          name: js
+          path: redist/js.zip
       
       - name: Upload directX platform build files
         uses: actions/upload-artifact@v4
@@ -100,7 +106,7 @@ jobs:
           path: redist/casiland_opengl_win.zip
       
       
-      - name: Package project
+      - name: Package DEVELOPMENT builds
         run: haxelib run redistHelper build.dev.dx.hxml build.dev.gl.hxml res -o redist -p casiland-DEVELOPMENT -zip
       
       - name: Upload directX DEVELOPMENT build files
@@ -114,12 +120,6 @@ jobs:
         with:
           name: win-dev-gl
           path: redist/casiland-DEVELOPMENT_opengl_win.zip
-      
-      - name: Upload JS build files
-        uses: actions/upload-artifact@v4
-        with:
-          name: js
-          path: redist/js.zip
         
       
   deploy:
