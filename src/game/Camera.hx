@@ -26,7 +26,7 @@ class Camera extends GameChildProcess {
 	public var deadZonePctX = 0.04;
 
 	/** Verticakl camera dead-zone in percentage of viewport height **/
-	public var deadZonePctY = 0.10;
+	public var deadZonePctY = 0.04;
 
 	var baseFrict = 0.89;
 	var dx = 0.;
