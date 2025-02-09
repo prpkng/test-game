@@ -64,12 +64,19 @@ class SampleGame extends Game {
 	override function preUpdate() {
 		hud.clearDebug();
 		super.preUpdate();
+
+		if (engine.fps < 30) {
+			for (_ in 0...3) {
+				PhysWorld.ME?.update((1.0 / engine.fps / 3) * tmod);
+			}
+		}
+		else 
+			PhysWorld.ME?.update((1.0 / engine.fps) * tmod);
 	}
 
 	override function fixedUpdate() {
 		super.fixedUpdate();
 
-		PhysWorld.ME?.update(1.0 / 30.0);
 	}
 
 	override function onDispose() {

@@ -48,4 +48,10 @@ class PhysObject extends Entity {
 		}
 		#end
 	}
+
+	override function dispose() {
+		super.dispose();
+
+		body.dispose();
+	}
 }
