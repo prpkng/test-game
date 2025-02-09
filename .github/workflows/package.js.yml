@@ -52,8 +52,9 @@ jobs:
       - uses: cedx/setup-hashlink@v6
         with:
           version: latest
-      - run: hl --version
-
+      - run: which hl
+      - run: echo "/opt/hostedtoolcache/hashlink/1.14.0/x64" >> "$GITHUB_PATH"
+      - run: ln -s /opt/hostedtoolcache/hashlink/1.14.0/x64/hl /opt/hostedtoolcache/haxe/4.3.3/x64/lib/redistHelper/0,7,6/redistFiles/hl64/
       - name: Package project
         run: haxelib run redistHelper build.js.hxml build.directx.hxml build.opengl.hxml -o redist -p GameBase
         
