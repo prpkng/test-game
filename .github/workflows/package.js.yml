@@ -74,9 +74,6 @@ jobs:
           tree ${{ steps.split.outputs._0 }}
       - run: Copy-Item -Path ${{ steps.split.outputs._0 }} -Destination C:/hostedtoolcache/windows/hashlink -Recurse
       - run: Add-Content $env:GITHUB_PATH "C:/hostedtoolcache/windows/hashlink"
-      - run: ls C:/hostedtoolcache/windows/
-      - run: tree C:/hostedtoolcache/windows/hashlink
-      - run: which hl
 
       - name: Copy VC redist DLL to build output
         run: cp msvcr120.dll "C:/hostedtoolcache/windows/haxe/4.3.3/x64/lib/redistHelper/0,7,6/redistFiles/hl64/"
