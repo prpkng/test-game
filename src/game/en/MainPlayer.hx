@@ -134,14 +134,9 @@ class MainPlayer extends Entity {
 		}
 
 		if (ca.isPressed(Fire)) {
-			cursor.setSquashX(0.65);
-			cursor.setSquashY(0.65);
-
-			cursor.shakeS(.75, .75, .25);
-
-			var dir = new Vector(cursor.attachX - attachX, cursor.attachY - attachY);
-
-			new PlayerBullet(this, dir);
+			weapon.startFiring();
+		} else if (ca.isReleased(Fire)) {
+			weapon.stopFiring();
 		}
 
 		if (ca.isPressed(Roll) && ca.getAnalogDist4(MoveLeft, MoveRight, MoveUp, MoveDown) > 0 && !cd.has("RollCooldown")) {

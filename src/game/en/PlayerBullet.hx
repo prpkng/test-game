@@ -1,24 +1,23 @@
 package en;
 
+import echo.math.Vector2;
 import h2d.Object;
 import en.vfx.Trail;
-import h2d.col.Point;
 import dn.heaps.filter.PixelOutline;
-import h3d.Vector;
 
 class PlayerBullet extends Entity {
 	static public var ALL:FixedArray<PlayerBullet> = new FixedArray<PlayerBullet>(16);
 
 	var bulletSpeed = 1.95;
-	var moveDir:Vector;
+	var moveDir:Vector2;
 
 	var trail:Trail;
 	var bulletSprite:HSprite;
 
 
-	public function new(player:MainPlayer, dir:Vector) {
+	public function new(player:MainPlayer, dir:Vector2) {
 		super(0, 0);
-		if (dir.lengthSq() < 0.05) {
+		if (dir.length_sq < 0.05) {
 			dispose();
 			return;
 		}
