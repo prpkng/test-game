@@ -176,6 +176,8 @@ class Game extends AppChildProcess {
 		#if debug
 		if (Console.ME.hasFlag(F_PhysicsShapes)) {
 			physDbg.draw(PhysWorld.world);
+		}else {
+			physDbg.clear();
 		}
 		#end
 

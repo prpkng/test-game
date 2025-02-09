@@ -43,9 +43,10 @@ class PhysObject extends Entity {
 		super.postUpdate();
 
 		#if debug
-		if (Console.ME.hasFlag(F_PhysicsShapes) || Console.ME.hasFlag(F_Bounds)){
+		if (Console.ME.hasFlag(F_PhysicsShapes) || Console.ME.hasFlag(F_Bounds))
 			debug('BodyID=${body.id}');
-		}
+		else
+			debug(null);
 		#end
 	}
 

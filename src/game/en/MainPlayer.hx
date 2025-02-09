@@ -69,7 +69,7 @@ class MainPlayer extends Entity {
 
 		cursor = new Cursor(this);
 
-		boxCaster = new BoxCaster(this, 0, 0, 16, 16);
+		boxCaster = new BoxCaster(this, 0, 0, 12, 16);
 		boxCaster.getTargets = () -> {
 			return PhysWorld.ME.hazards.mapToArray(b -> b);
 		}
@@ -182,7 +182,7 @@ class MainPlayer extends Entity {
 			weapon.update();
 
 		#if debug
-		if (Console.ME.hasFlag(F_PhysicsShapes))
+		if (Console.ME.hasFlag(F_PhysicsShapes) && !hasAffect(Affect.PlayerIvulnerable))
 			boxCaster.renderDebugShapes();
 		#end
 	}
