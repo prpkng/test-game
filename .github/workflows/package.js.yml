@@ -50,7 +50,7 @@ jobs:
 
       - uses: cedx/setup-hashlink@v6
         with:
-          version: latest
+          version: =latest
       - run: which hl
 
       - name: Copy VC redist DLL to build output
@@ -112,4 +112,4 @@ jobs:
           files: |
             casiland_directx.zip
             casiland_opengl_win.zip
-          
+          prerelease: true
