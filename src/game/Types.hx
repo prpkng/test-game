@@ -40,7 +40,8 @@ enum abstract State(Int) {
 enum abstract Affect(Int) {
 	var Stun;
 
-	var PlayerRolling;
+	var PlayerRolling = 16;
+	var PlayerIvulnerable; 
 }
 
 enum abstract LevelMark(Int) to Int {

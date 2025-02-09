@@ -17,6 +17,7 @@ class MainPlayer extends Entity {
 	public var ca:ControllerAccess<GameAction>;
 
 	final ROLL_COOLDOWN_SECS = 0.4;
+	final ROLL_IVULNERABLE_SECS = 0.25;
 	final ROLL_AFFECT_SECS = 0.25;
 
 	var velocity = new Vector();
@@ -143,10 +144,11 @@ class MainPlayer extends Entity {
 			new PlayerBullet(this, dir);
 		}
 
-		if (ca.isPressed(Roll) && !cd.has("RollCooldown")) {
+		if (ca.isPressed(Roll) && ca.getAnalogDist4(MoveLeft, MoveRight, MoveUp, MoveDown) > 0 && !cd.has("RollCooldown")) {
 			rollingDirection = new Vector(velocity.x, velocity.y);
 			rollingDirection.normalize();
 			setAffectS(Affect.PlayerRolling, ROLL_AFFECT_SECS);
+			setAffectS(Affect.PlayerIvulnerable, ROLL_IVULNERABLE_SECS);
 			cd.setS("RollCooldown", ROLL_COOLDOWN_SECS);
 			spr.anim.play("Roll");
 			weapon.visible = false;
@@ -195,7 +197,9 @@ class MainPlayer extends Entity {
 
 		super.fixedUpdate();
 
-		boxCaster.setPosition(attachX, attachY);
-		boxCaster.check();
+		if (!hasAffect(Affect.PlayerIvulnerable)) {
+			boxCaster.setPosition(attachX, attachY);
+			boxCaster.check();
+		}
 	}
 }
