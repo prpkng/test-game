@@ -16,7 +16,7 @@ class PlayerBullet extends Entity {
 	var bulletSprite:HSprite;
 
 
-	public function new(player:TopDownPlayer, dir:Vector) {
+	public function new(player:MainPlayer, dir:Vector) {
 		super(0, 0);
 		if (dir.lengthSq() < 0.05) {
 			dispose();

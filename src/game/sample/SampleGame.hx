@@ -18,7 +18,7 @@ class SampleGame extends Game {
 	override function startLevel() {
 		super.startLevel();
 		new PhysWorld();
-		new TopDownPlayer();
+		new MainPlayer();
 
 		new en.PhysObject(304, 264, true, [
 			{

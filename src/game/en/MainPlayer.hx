@@ -13,7 +13,7 @@ import h3d.Vector;
 	- has basic level collisions
 	- some squash animations, because it's cheap and they do the job
 **/
-class TopDownPlayer extends Entity {
+class MainPlayer extends Entity {
 	public var ca:ControllerAccess<GameAction>;
 
 	final ROLL_COOLDOWN_SECS = 0.4;
@@ -34,12 +34,14 @@ class TopDownPlayer extends Entity {
 	public var weapon:PlayerWeapon;
 	public var cursor:Cursor;
 
+	public var boxCaster:BoxCaster;
+
 	public function new() {
 		super(5, 5);
 
 		// Start point using level entity "PlayerStart"
 		if (level is LDtkLevel) {
-			var start = (cast (level, LDtkLevel)).data.l_Entities.all_PlayerStart[0];
+			var start = (cast(level, LDtkLevel)).data.l_Entities.all_PlayerStart[0];
 			if (start != null)
 				setPosPixel(start.pixelX, start.pixelY);
 		}
@@ -65,6 +67,11 @@ class TopDownPlayer extends Entity {
 		weapon = new PlayerWeapon(this);
 
 		cursor = new Cursor(this);
+
+		boxCaster = new BoxCaster(this, 0, 0, 16, 16);
+		boxCaster.getTargets = () -> {
+			return PhysWorld.ME.hazards.mapToArray(b -> b);
+		}
 	}
 
 	override function dispose() {
@@ -168,16 +175,23 @@ class TopDownPlayer extends Entity {
 
 		if (!hasAffect(Affect.PlayerRolling))
 			weapon.update();
+
+		#if debug
+		if (Console.ME.hasFlag(F_PhysicsShapes))
+			boxCaster.renderDebugShapes();
+		#end
 	}
 
 	override function fixedUpdate() {
-		super.fixedUpdate();
-
 		// Apply requested walk movement
 
 		if (velocity.x != 0)
 			vBase.dx += velocity.x;
 		if (velocity.y != 0)
 			vBase.dy += velocity.y;
+
+		super.fixedUpdate();
+
+		boxCaster.setPosition(attachX, attachY);
 	}
 }

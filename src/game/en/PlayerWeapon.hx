@@ -4,10 +4,10 @@ package en;
  * A class representing the player current weapon
  */
 class PlayerWeapon extends HSprite {
-	var player:TopDownPlayer;
+	var player:MainPlayer;
 	var gunPivot:h2d.Object;
 
-	public function new(parent:TopDownPlayer) {
+	public function new(parent:MainPlayer) {
 		gunPivot = new h2d.Object(parent.spr);
 		super(Assets.playerGun, "Idle", 0, gunPivot);
 

@@ -15,8 +15,15 @@ class SnookerBall extends PhysObject {
         spr.set(Assets.lineBall, "Spin");
         spr.setCenterRatio();
         spr.anim.playAndLoop("Spin");
+    
+        PhysWorld.ME.hazards.push(body);
     }
 
+    override function dispose() {
+        super.dispose();
+
+        PhysWorld.ME.hazards.remove(body);
+    }
 
     override function postUpdate() {
         super.postUpdate();

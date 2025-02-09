@@ -1,12 +1,15 @@
+import echo.Body;
 import echo.Echo;
 
 class PhysWorld {
+    
     static public var ME: PhysWorld;
     static public var world(get, never):echo.World;
-        static function get_world(): echo.World {
-            return ME.activeWorld;
-        }
-    public var activeWorld: echo.World;
+    static function get_world(): echo.World {
+        return ME.activeWorld;
+    }
+    public var hazards:FixedArray<Body> = new FixedArray(32); 
+    var activeWorld: echo.World;
 
     public function new() {
         ME = this;

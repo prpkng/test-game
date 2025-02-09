@@ -3,7 +3,7 @@ package en;
 import h2d.col.Point;
 
 class Cursor extends Entity {
-	var player:TopDownPlayer;
+	var player:MainPlayer;
 
 	var gamepadLookDistance = 64;
 	var gamepadAnalogMag = 0.0;
@@ -12,7 +12,7 @@ class Cursor extends Entity {
 
 	var lastMousePos = new Point();
 
-	public function new(player:TopDownPlayer) {
+	public function new(player:MainPlayer) {
 		super(0, 0);
 
 		this.player = player;

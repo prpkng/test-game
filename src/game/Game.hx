@@ -172,6 +172,12 @@ class Game extends AppChildProcess {
 	/** Loop that happens at the beginning of the frame **/
 	override function preUpdate() {
 		super.preUpdate();
+		
+		#if debug
+		if (Console.ME.hasFlag(F_PhysicsShapes)) {
+			physDbg.draw(PhysWorld.world);
+		}
+		#end
 
 		for (e in Entity.ALL)
 			if (!e.destroyed)
@@ -200,12 +206,6 @@ class Game extends AppChildProcess {
 		// Dispose entities marked as "destroyed"
 		garbageCollectEntities();
 
-		#if debug
-		if (!Console.ME.hasFlag(F_PhysicsShapes)) {
-			physDbg.clear();
-			physDbg.draw(PhysWorld.world);
-		}
-		#end
 	}
 
 	/** Main loop but limited to 30 fps (so it might not be called during some frames) **/
