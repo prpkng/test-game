@@ -64,9 +64,13 @@ jobs:
           out-file-path: hashlink
       - env:
           ZIP_FNAME: ${{steps.download-hl.outputs.downloaded_files[0]}}
+        shell: bash 
         run: |
+          echo "Hashlink version: ${{steps.download-hl.outputs.downloaded_files[0]}}"
+          echo "Hashlink version: ${ZIP_FNAME}"
+          echo "Hashlink version: ${ZIP_FNAME##.zip}"
           cp hashlink/${ZIP_FNAME##.zip} C:/hostedtoolcache/windows/hashlink
-          Add-Content $env:GITHUB_PATH "C:/hostedtoolcache/windows/hashlink"
+      - run: Add-Content $env:GITHUB_PATH "C:/hostedtoolcache/windows/hashlink"
       - run: ls C:/hostedtoolcache/windows/
       - run: tree C:/hostedtoolcache/windows/hashlink
       - run: which hl
