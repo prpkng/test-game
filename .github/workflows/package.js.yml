@@ -102,6 +102,23 @@ jobs:
           name: win-gl
           path: redist/casiland_opengl_win.zip
       
+      
+      - name: Package project
+        run: haxelib run redistHelper build.dev.dx.hxml build.dev.gl.hxml -o redist -p casiland-DEVELOPMENT -zip
+      
+      - name: Upload directX DEVELOPMENT build files
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-dev-dx
+          path: redist/casiland-DEVELOPMENT_directx.zip
+      
+      - name: Upload opengl DEVELOPMENT build files
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-dev-gl
+          path: redist/casiland-DEVELOPMENT_opengl_win.zip
+        
+      
 
     
   deploy:
@@ -129,6 +146,16 @@ jobs:
         with:
           name: win-gl
       
+      - name: Download directX platform build files
+        uses: actions/download-artifact@v4
+        with:
+          name: win-dev-dx
+      
+      - name: Download opengl platform build files
+        uses: actions/download-artifact@v4
+        with:
+          name: win-dev-gl
+      
       - name: Upload other platform builds
         uses: softprops/action-gh-release@v2
         with:
@@ -137,4 +164,6 @@ jobs:
           files: |
             casiland_directx.zip
             casiland_opengl_win.zip
+            casiland-DEVELOPMENT_directx.zip
+            casiland-DEVELOPMENT_opengl_win.zip
           prerelease: true

@@ -1,0 +1,3 @@
+build.opengl.hxml
+-D PHYSICS_SHAPES
+-debug

@@ -1,3 +1,1 @@
-build.directx.hxml
--D PHYSICS_SHAPES
--debug
+build.dev.dx.hxml
