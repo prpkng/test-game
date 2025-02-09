@@ -54,11 +54,11 @@ class Cursor extends Entity {
 
 			gamepadAnalogMag = M.lerp(gamepadAnalogMag, Math.max(dist, .025), tmod / 4.0);
 			spr.alpha = M.lerp(-0.5, 1.0, gamepadAnalogMag);
-
+			
 			setPosPixel(gamepadAnalogDir.x * gamepadLookDistance * gamepadAnalogMag + player.attachX,
 				gamepadAnalogDir.y * gamepadLookDistance * gamepadAnalogMag + player.attachY);
-		} else {
-			spr.alpha = 1;
+			} else {
+			spr.alpha = 1; 
 			setPosPixel(camera.worldMouseX, camera.worldMouseY);
 		}
 	}

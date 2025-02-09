@@ -1,6 +1,5 @@
 package sample;
 
-import dn.heaps.filter.Crt;
 import echo.math.Vector2;
 import en.bs.snooker.SnookerBall;
 import echo.data.Types.ForceType;
@@ -19,9 +18,6 @@ class SampleGame extends Game {
 
 	override function startLevel() {
 		super.startLevel();
-
-		app.scene.filter = new Crt(3, 0xffffff, 0.35);
-
 		new PhysWorld();
 		new MainPlayer();
 
