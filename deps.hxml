@@ -8,3 +8,4 @@
 -lib heaps-aseprite
 -lib hxease
 -lib echo
+-lib coroutine
