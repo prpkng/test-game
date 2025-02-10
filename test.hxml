@@ -1,0 +1,11 @@
+deps.hxml
+-cp test
+-D utest
+--dce full
+-D analyzer-optimize
+-lib utest
+
+-w -WDeprecated-WUnusedPattern
+
+-main test.TestRunner
+--hl bin/test.hl
