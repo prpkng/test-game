@@ -18,6 +18,5 @@
 
 --cmd haxelib --always install hxease
 --cmd haxelib --always install echo
---cmd haxelib --always install coroutine
 # Done
 --cmd haxelib list
