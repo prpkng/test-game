@@ -1,2 +1,4 @@
 deps.hxml
 -main Boot
+
+-w -WDeprecated -WDeprecatedEnumAbstract
