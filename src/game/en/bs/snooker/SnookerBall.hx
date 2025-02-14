@@ -11,6 +11,8 @@ class SnookerBall extends PhysObject {
             }
         ]);
 
+        body.material.elasticity = 0.95;
+
         spr.colorize(0xffffffff);
         spr.set(Assets.lineBall, "Spin");
         spr.setCenterRatio();

@@ -132,6 +132,8 @@ class FSM implements IState {
 		return parent ?? this;
 	}
 
+	public var debugMode = false;
+
 	public function new(?initialStates:Null<Map<String, IState>>, hasExitTime = false) {
         this.hasExitTime = hasExitTime;
 		for (id => state in initialStates) {
@@ -149,11 +151,14 @@ class FSM implements IState {
         onEnter();
 	}
 
-    public function requestTransition(to: String) {
+    public function requestTransition(to: String, delay = 0.0) {
 		if (!states.exists(to)) {
             throw new Exception('No state found in FSM named: ${to}');
         }
-        requestedTransition = to;
+		if (delay == 0)
+        	requestedTransition = to;
+		else 
+			Game.ME.delayer.addS(null, () -> requestedTransition = to, delay);
     } 
 
     public function canExit():Bool {
@@ -178,12 +183,18 @@ class FSM implements IState {
     }
 
 	public function update(tmod:Float) {
+		if (debugMode)
+			Game.ME.hud.debug('Current state: ${currentStateName}');
+
         if (requestedTransition != null) {
             if (states.exists(currentStateName))
                 currentState.onExit();
             currentStateName = requestedTransition;
             requestedTransition = null;
             currentState.onEnter();
+
+			if (debugMode)
+				Game.ME.hud.notify('Boss state: "${currentStateName}"', 0x0a0a0a);
         }
         if (states.exists(currentStateName)) {
             currentState.update(tmod);
