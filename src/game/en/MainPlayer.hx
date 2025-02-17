@@ -117,8 +117,8 @@ class MainPlayer extends Entity {
 		}
 
 		// Ceiling collision
-		if (yr < 0.4 && level.hasCollision(cx, cy - 1))
-			yr = 0.4;
+		if (yr < 0.01 && level.hasCollision(cx, cy - 1))
+			yr = 0.01;
 	}
 
 	/**

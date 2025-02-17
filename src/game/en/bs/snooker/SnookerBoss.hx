@@ -17,13 +17,12 @@ class SnookerBoss extends Entity {
     public function new(center: Vector2) {
         super(0, 0);
         levelCenter = center;
-
         var handOrigin = levelCenter - Vector2.up * 192;
+        setPosPixel(handOrigin.x, handOrigin.y);
 
-        leftHand = new Hand(true);
-        leftHand.setPosPixel(handOrigin.x + 32, handOrigin.y);
-        rightHand = new Hand(false);
-        rightHand.setPosPixel(handOrigin.x - 32, handOrigin.y);
+
+        leftHand = new Hand(true, handOrigin + Vector2.right * 32);
+        rightHand = new Hand(false, handOrigin + Vector2.left * 32);
 
         fsm = new FSM([
             "populateBalls" => new PopulateBallsState(this),
