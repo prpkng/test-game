@@ -38,6 +38,7 @@ class Cursor extends Entity {
 	override function frameUpdate() {
 		#if debug
 		game.hud.debug('MP: ${(M.round(camera.worldMouseX))},${M.round(camera.worldMouseY)}');
+		game.hud.debug('MP (GRID): ${(M.round(camera.worldMouseX/Const.GRID))},${M.round(camera.worldMouseY/Const.GRID)}');
 		#end
 		if (isUsingGamepad) {
 			var dist = player.ca.getAnalogDistXY(LookX, LookY);

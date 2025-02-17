@@ -1,0 +1,30 @@
+Null access .entries
+BUILD: 2025-02-16-20-43-20--hlsdl-64
+EXCEPTION:
+
+CALL:
+
+Called from $App.onCrash (App.hx line 89)
+Called from aseprite.$Utils.getCelPixels (aseprite/Utils.hx line 194)
+Called from aseprite.$Utils.getFramePixels (aseprite/Utils.hx line 137)
+Called from aseprite.$Utils.parseAse (aseprite/Utils.hx line 105)
+Called from aseprite.Aseprite.loadBytes (aseprite/Aseprite.hx line 219)
+Called from aseprite.$Aseprite.fromBytes (aseprite/Aseprite.hx line 44)
+Called from aseprite.res.Aseprite.toAseprite (aseprite/res/Aseprite.hx line 16)
+Called from assets.$Assets.init (assets/Assets.hx line 51)
+Called from App.initAssets (App.hx line 208)
+Called from $App.__constructor__ (App.hx line 28)
+Called from Boot.init (Boot.hx line 29)
+Called from hxd.App.~setup.2 (hxd/App.hx line 153)
+Called from hxd.App.loadAssets (hxd/App.hx line 181)
+Called from hxd.App.setup (hxd/App.hx line 151)
+Called from h3d.Engine.onCreate (h3d/Engine.hx line 244)
+Called from h3d.impl.GlDriver.~init.0 (h3d/impl/GlDriver.hx line 1858)
+Called from haxe.$Timer.~delay.0 (/usr/share/haxe/std/haxe/Timer.hx line 149)
+Called from haxe.$Timer.~__constructor__.0 (/usr/share/haxe/std/haxe/Timer.hx line 81)
+Called from sys.thread.EventLoop.progress (/usr/share/haxe/std/sys/thread/EventLoop.hx line 146)
+Called from hxd.$System.runMainLoop (hxd/System.hl.hx line 157)
+Called from haxe.$Timer.~delay.0 (/usr/share/haxe/std/haxe/Timer.hx line 149)
+Called from haxe.$Timer.~__constructor__.0 (/usr/share/haxe/std/haxe/Timer.hx line 81)
+Called from sys.thread.EventLoop.loop (/usr/share/haxe/std/sys/thread/EventLoop.hx line 183)
+Called from sys.thread._Thread.$Thread_Impl_.processEvents (/usr/share/haxe/std/hl/_std/sys/thread/Thread.hx line 83)

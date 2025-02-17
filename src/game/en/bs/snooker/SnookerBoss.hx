@@ -11,9 +11,20 @@ class SnookerBoss extends Entity {
     public var currentBalls:Array<SnookerBall> = [];
     public var levelCenter:Vector2;
 
+    public var leftHand:Hand;
+    public var rightHand:Hand;
+
     public function new(center: Vector2) {
         super(0, 0);
         levelCenter = center;
+
+        var handOrigin = levelCenter - Vector2.up * 192;
+
+        leftHand = new Hand(true);
+        leftHand.setPosPixel(handOrigin.x + 32, handOrigin.y);
+        rightHand = new Hand(false);
+        rightHand.setPosPixel(handOrigin.x - 32, handOrigin.y);
+
         fsm = new FSM([
             "populateBalls" => new PopulateBallsState(this),
             "shotBalls" => new ShotBallsState(this),
@@ -22,7 +33,6 @@ class SnookerBoss extends Entity {
         fsm.setStartState("populateBalls");
         fsm.debugMode = true;
 
-        trace("Setting up boss");
         fsm.onEnter();
     }
 

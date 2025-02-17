@@ -1,5 +1,6 @@
 package assets;
 
+import aseprite.Aseprite;
 import dn.heaps.slib.*;
 
 /**
@@ -20,6 +21,9 @@ class Assets {
 	public static var playerGun:SpriteLib;
 	public static var lineBall:SpriteLib;
 
+	public static var snookerBoss:{
+		hands:SpriteLib
+	}
 	/** LDtk world data **/
 	public static var worldData:World;
 
@@ -42,6 +46,11 @@ class Assets {
 		player = dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.spr.player.toAseprite());
 		playerGun = dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.spr.player_gun.toAseprite());
 		lineBall = dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.spr.line_ball.toAseprite());
+
+		snookerBoss = {
+			hands: dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.spr.snooker.hands.toAseprite())
+		};
+
 		// Hot-reloading of CastleDB
 		#if debug
 		hxd.Res.data.watch(function() {
