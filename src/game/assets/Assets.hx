@@ -22,7 +22,8 @@ class Assets {
 	public static var lineBall:SpriteLib;
 
 	public static var snookerBoss:{
-		hands:SpriteLib
+		hands:SpriteLib,
+		poolStick:SpriteLib,
 	}
 	/** LDtk world data **/
 	public static var worldData:World;
@@ -48,7 +49,8 @@ class Assets {
 		lineBall = dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.spr.line_ball.toAseprite());
 
 		snookerBoss = {
-			hands: dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.spr.snooker.hands.toAseprite())
+			hands: dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.spr.snooker.hands.toAseprite()),
+			poolStick: dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.spr.snooker.pool_stick.toAseprite()),
 		};
 
 		// Hot-reloading of CastleDB
